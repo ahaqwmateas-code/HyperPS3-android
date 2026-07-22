@@ -1,0 +1,1378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceScreen app:title="@string/emulator_settings_core"
+        app:iconSpaceReserved="false"
+        app:key="Core" >
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_ppu_decoder"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_ppu_decoder_entries"
+            app:entryValues="@array/core_ppu_decoder_values"
+            app:key="Core|PPU Decoder" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_ppu_threads"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="8"
+            app:showSeekBarValue="true"
+            app:key="Core|PPU Threads" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_debug"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU Debug" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_calling_history"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU Calling History" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_save_llvm_logs"
+            app:iconSpaceReserved="false"
+            app:key="Core|Save LLVM logs" />
+
+
+        <PreferenceScreen app:title="@string/emulator_settings_core_use_llvm_cpu"
+            app:iconSpaceReserved="false"
+            app:key="Core|Use LLVM CPU" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_max_llvm_compile_threads"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="12"
+            app:showSeekBarValue="true"
+            app:key="Core|Max LLVM Compile Threads" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_llvm_precompilation"
+            app:iconSpaceReserved="false"
+            app:key="Core|LLVM Precompilation" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_thread_scheduler_mode"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_thread_scheduler_mode_entries"
+            app:entryValues="@array/core_thread_scheduler_mode_values"
+            app:key="Core|Thread Scheduler Mode" />
+
+        <PreferenceScreen app:title="@string/emulator_settings_core_thread_affinity_mask"
+            app:iconSpaceReserved="false"
+            app:key="Core|Thread Affinity Mask" />
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_set_daz_and_ftz"
+            app:iconSpaceReserved="false"
+            app:key="Core|Set DAZ and FTZ" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_spu_decoder"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_spu_decoder_entries"
+            app:entryValues="@array/core_spu_decoder_values"
+            app:key="Core|SPU Decoder" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_spu_reservation_busy_waiting_percentage"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="100"
+            app:showSeekBarValue="true"
+            app:key="Core|SPU Reservation Busy Waiting Percentage" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_spu_getllar_busy_waiting_percentage"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="100"
+            app:showSeekBarValue="true"
+            app:key="Core|SPU GETLLAR Busy Waiting Percentage" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_disable_spu_getllar_spin_optimization"
+            app:iconSpaceReserved="false"
+            app:key="Core|Disable SPU GETLLAR Spin Optimization" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_spu_debug"
+            app:iconSpaceReserved="false"
+            app:key="Core|SPU Debug" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_mfc_debug"
+            app:iconSpaceReserved="false"
+            app:key="Core|MFC Debug" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_preferred_spu_threads"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="6"
+            app:showSeekBarValue="true"
+            app:key="Core|Preferred SPU Threads" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_spu_delay_penalty"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="16"
+            app:showSeekBarValue="true"
+            app:key="Core|SPU delay penalty" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_spu_loop_detection"
+            app:iconSpaceReserved="false"
+            app:key="Core|SPU loop detection" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_max_spurs_threads"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="6"
+            app:showSeekBarValue="true"
+            app:key="Core|Max SPURS Threads" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_spu_block_size"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_spu_block_size_entries"
+            app:entryValues="@array/core_spu_block_size_values"
+            app:key="Core|SPU Block Size" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_accurate_spu_dma"
+            app:iconSpaceReserved="false"
+            app:key="Core|Accurate SPU DMA" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_accurate_spu_reservations"
+            app:iconSpaceReserved="false"
+            app:key="Core|Accurate SPU Reservations" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_accurate_cache_line_stores"
+            app:iconSpaceReserved="false"
+            app:key="Core|Accurate Cache Line Stores" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_accurate_rsx_reservation_access"
+            app:iconSpaceReserved="false"
+            app:key="Core|Accurate RSX reservation access" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_rsx_fifo_accuracy"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_rsx_fifo_accuracy_entries"
+            app:entryValues="@array/core_rsx_fifo_accuracy_values"
+            app:key="Core|RSX FIFO Accuracy" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_spu_verification"
+            app:iconSpaceReserved="false"
+            app:key="Core|SPU Verification" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_spu_cache"
+            app:iconSpaceReserved="false"
+            app:key="Core|SPU Cache" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_spu_profiler"
+            app:iconSpaceReserved="false"
+            app:key="Core|SPU Profiler" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_mfc_commands_shuffling_limit"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="16"
+            app:showSeekBarValue="true"
+            app:key="Core|MFC Commands Shuffling Limit" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_mfc_commands_timeout"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="10000"
+            app:showSeekBarValue="true"
+            app:key="Core|MFC Commands Timeout" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_mfc_commands_shuffling_in_steps"
+            app:iconSpaceReserved="false"
+            app:key="Core|MFC Commands Shuffling In Steps" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_enable_tsx"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_enable_tsx_entries"
+            app:entryValues="@array/core_enable_tsx_values"
+            app:key="Core|Enable TSX" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_xfloat_accuracy"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_xfloat_accuracy_entries"
+            app:entryValues="@array/core_xfloat_accuracy_values"
+            app:key="Core|XFloat Accuracy" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_accurate_ppu_128byte_reservation_op_max_length"
+            app:iconSpaceReserved="false"
+            app:min="-1"
+            android:max="14"
+            app:showSeekBarValue="true"
+            app:key="Core|Accurate PPU 128-byte Reservation Op Max Length" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_stub_ppu_traps"
+            app:iconSpaceReserved="false"
+            app:min="-64"
+            android:max="64"
+            app:showSeekBarValue="true"
+            app:key="Core|Stub PPU Traps" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_precise_spu_verification"
+            app:iconSpaceReserved="false"
+            app:key="Core|Precise SPU Verification" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_llvm_java_mode_handling"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU LLVM Java Mode Handling" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_use_accurate_dfma"
+            app:iconSpaceReserved="false"
+            app:key="Core|Use Accurate DFMA" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_set_saturation_bit"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU Set Saturation Bit" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_accurate_nonjava_mode"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU Accurate Non-Java Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_fixup_vector_nan_values"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU Fixup Vector NaN Values" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_accurate_vector_nan_values"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU Accurate Vector NaN Values" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_ppu_set_fpcc_bits"
+            app:iconSpaceReserved="false"
+            app:key="Core|PPU Set FPCC Bits" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_debug_console_mode"
+            app:iconSpaceReserved="false"
+            app:key="Core|Debug Console Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_hook_static_functions"
+            app:iconSpaceReserved="false"
+            app:key="Core|Hook static functions" />
+
+
+        <PreferenceScreen app:title="@string/emulator_settings_core_libraries_control"
+            app:iconSpaceReserved="false"
+            app:key="Core|Libraries Control" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_hle_lwmutex"
+            app:iconSpaceReserved="false"
+            app:key="Core|HLE lwmutex" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_tsx_transaction_first_limit"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="0x7fffffff"
+            app:showSeekBarValue="true"
+            app:key="Core|TSX Transaction First Limit" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_tsx_transaction_second_limit"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="0x7fffffff"
+            app:showSeekBarValue="true"
+            app:key="Core|TSX Transaction Second Limit" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_clocks_scale"
+            app:iconSpaceReserved="false"
+            app:min="10"
+            android:max="3000"
+            app:showSeekBarValue="true"
+            app:key="Core|Clocks scale" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_spu_wakeup_delay"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="3000"
+            app:showSeekBarValue="true"
+            app:key="Core|SPU Wake-Up Delay" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_spu_wakeup_delay_thread_mask"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="63"
+            app:showSeekBarValue="true"
+            app:key="Core|SPU Wake-Up Delay Thread Mask" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_max_cpu_preempt_count"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="400"
+            app:showSeekBarValue="true"
+            app:key="Core|Max CPU Preempt Count" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_allow_rsx_cpu_preemptions"
+            app:iconSpaceReserved="false"
+            app:key="Core|Allow RSX CPU Preemptions" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_core_sleep_timers_accuracy"
+            app:iconSpaceReserved="false"
+            app:entries="@array/core_sleep_timers_accuracy_entries"
+            app:entryValues="@array/core_sleep_timers_accuracy_values"
+            app:key="Core|Sleep Timers Accuracy" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_usleep_time_addend"
+            app:iconSpaceReserved="false"
+            app:min="-1000"
+            android:max="1500"
+            app:showSeekBarValue="true"
+            app:key="Core|Usleep Time Addend" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_core_performance_report_threshold"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="0x7fffffff"
+            app:showSeekBarValue="true"
+            app:key="Core|Performance Report Threshold" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_enable_performance_report"
+            app:iconSpaceReserved="false"
+            app:key="Core|Enable Performance Report" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_core_assume_external_debugger"
+            app:iconSpaceReserved="false"
+            app:key="Core|Assume External Debugger" />
+
+    </PreferenceScreen>
+    <PreferenceScreen app:title="@string/emulator_settings_video"
+        app:iconSpaceReserved="false"
+        app:key="Video" >
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_renderer"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_renderer_entries"
+            app:entryValues="@array/video_renderer_values"
+            app:key="Video|Renderer" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_resolution"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_resolution_entries"
+            app:entryValues="@array/video_resolution_values"
+            app:key="Video|Resolution" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_aspect_ratio"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_aspect_ratio_entries"
+            app:entryValues="@array/video_aspect_ratio_values"
+            app:key="Video|Aspect ratio" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_frame_limit"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_frame_limit_entries"
+            app:entryValues="@array/video_frame_limit_values"
+            app:key="Video|Frame limit" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_second_frame_limit"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="1000"
+            app:showSeekBarValue="true"
+            app:key="Video|Second Frame Limit" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_msaa"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_msaa_entries"
+            app:entryValues="@array/video_msaa_values"
+            app:key="Video|MSAA" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_shader_mode"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_shader_mode_entries"
+            app:entryValues="@array/video_shader_mode_values"
+            app:key="Video|Shader Mode" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_shader_precision"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_shader_precision_entries"
+            app:entryValues="@array/video_shader_precision_values"
+            app:key="Video|Shader Precision" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_write_color_buffers"
+            app:iconSpaceReserved="false"
+            app:key="Video|Write Color Buffers" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_write_depth_buffer"
+            app:iconSpaceReserved="false"
+            app:key="Video|Write Depth Buffer" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_read_color_buffers"
+            app:iconSpaceReserved="false"
+            app:key="Video|Read Color Buffers" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_read_depth_buffer"
+            app:iconSpaceReserved="false"
+            app:key="Video|Read Depth Buffer" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_handle_rsx_memory_tiling"
+            app:iconSpaceReserved="false"
+            app:key="Video|Handle RSX Memory Tiling" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_log_shader_programs"
+            app:iconSpaceReserved="false"
+            app:key="Video|Log shader programs" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vsync"
+            app:iconSpaceReserved="false"
+            app:key="Video|VSync" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_debug_output"
+            app:iconSpaceReserved="false"
+            app:key="Video|Debug output" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_debug_overlay"
+            app:iconSpaceReserved="false"
+            app:key="Video|Debug overlay" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_renderdoc_compatibility_mode"
+            app:iconSpaceReserved="false"
+            app:key="Video|Renderdoc Compatibility Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_use_gpu_texture_scaling"
+            app:iconSpaceReserved="false"
+            app:key="Video|Use GPU texture scaling" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_stretch_to_display_area"
+            app:iconSpaceReserved="false"
+            app:key="Video|Stretch To Display Area" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_force_high_precision_z_buffer"
+            app:iconSpaceReserved="false"
+            app:key="Video|Force High Precision Z buffer" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_strict_rendering_mode"
+            app:iconSpaceReserved="false"
+            app:key="Video|Strict Rendering Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_disable_zcull_occlusion_queries"
+            app:iconSpaceReserved="false"
+            app:key="Video|Disable ZCull Occlusion Queries" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_disable_video_output"
+            app:iconSpaceReserved="false"
+            app:key="Video|Disable Video Output" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_disable_vertex_cache"
+            app:iconSpaceReserved="false"
+            app:key="Video|Disable Vertex Cache" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_disable_fifo_reordering"
+            app:iconSpaceReserved="false"
+            app:key="Video|Disable FIFO Reordering" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_enable_frame_skip"
+            app:iconSpaceReserved="false"
+            app:key="Video|Enable Frame Skip" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_force_cpu_blit"
+            app:iconSpaceReserved="false"
+            app:key="Video|Force CPU Blit" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_disable_ondisk_shader_cache"
+            app:iconSpaceReserved="false"
+            app:key="Video|Disable On-Disk Shader Cache" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_disable_vulkan_memory_allocator"
+            app:iconSpaceReserved="false"
+            app:key="Video|Disable Vulkan Memory Allocator" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_use_full_rgb_output_range"
+            app:iconSpaceReserved="false"
+            app:key="Video|Use full RGB output range" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_strict_texture_flushing"
+            app:iconSpaceReserved="false"
+            app:key="Video|Strict Texture Flushing" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_multithreaded_rsx"
+            app:iconSpaceReserved="false"
+            app:key="Video|Multithreaded RSX" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_relaxed_zcull_sync"
+            app:iconSpaceReserved="false"
+            app:key="Video|Relaxed ZCULL Sync" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_force_hardware_msaa_resolve"
+            app:iconSpaceReserved="false"
+            app:key="Video|Force Hardware MSAA Resolve" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_3d_display_mode"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_3d_display_mode_entries"
+            app:entryValues="@array/video_3d_display_mode_values"
+            app:key="Video|3D Display Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_debug_program_analyser"
+            app:iconSpaceReserved="false"
+            app:key="Video|Debug Program Analyser" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_accurate_zcull_stats"
+            app:iconSpaceReserved="false"
+            app:key="Video|Accurate ZCULL stats" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_consecutive_frames_to_draw"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="8"
+            app:showSeekBarValue="true"
+            app:key="Video|Consecutive Frames To Draw" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_consecutive_frames_to_skip"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="8"
+            app:showSeekBarValue="true"
+            app:key="Video|Consecutive Frames To Skip" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_resolution_scale"
+            app:iconSpaceReserved="false"
+            app:min="25"
+            android:max="800"
+            app:showSeekBarValue="true"
+            app:key="Video|Resolution Scale" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_anisotropic_filter_override"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="16"
+            app:showSeekBarValue="true"
+            app:key="Video|Anisotropic Filter Override" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_texture_lod_bias_addend"
+            app:iconSpaceReserved="false"
+            app:min="-32"
+            android:max="32"
+            app:showSeekBarValue="true"
+            app:key="Video|Texture LOD Bias Addend" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_minimum_scalable_dimension"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="1024"
+            app:showSeekBarValue="true"
+            app:key="Video|Minimum Scalable Dimension" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_shader_compiler_threads"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="16"
+            app:showSeekBarValue="true"
+            app:key="Video|Shader Compiler Threads" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_driver_recovery_timeout"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="30000000"
+            app:showSeekBarValue="true"
+            app:key="Video|Driver Recovery Timeout" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_driver_wakeup_delay"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="16667"
+            app:showSeekBarValue="true"
+            app:key="Video|Driver Wake-Up Delay" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_vblank_rate"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="3000"
+            app:showSeekBarValue="true"
+            app:key="Video|Vblank Rate" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vblank_ntsc_fixup"
+            app:iconSpaceReserved="false"
+            app:key="Video|Vblank NTSC Fixup" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_decr_memory_layout"
+            app:iconSpaceReserved="false"
+            app:key="Video|DECR memory layout" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_allow_host_gpu_labels"
+            app:iconSpaceReserved="false"
+            app:key="Video|Allow Host GPU Labels" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_disable_asynchronous_memory_manager"
+            app:iconSpaceReserved="false"
+            app:key="Video|Disable Asynchronous Memory Manager" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_output_scaling_mode"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_output_scaling_mode_entries"
+            app:entryValues="@array/video_output_scaling_mode_values"
+            app:key="Video|Output Scaling Mode" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_vertex_buffer_upload_mode"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_vertex_buffer_upload_mode_entries"
+            app:entryValues="@array/video_vertex_buffer_upload_mode_values"
+            app:key="Video|Vertex Buffer Upload Mode" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_video_texture_upload_mode"
+            app:iconSpaceReserved="false"
+            app:entries="@array/video_texture_upload_mode_entries"
+            app:entryValues="@array/video_texture_upload_mode_values"
+            app:key="Video|Texture Upload Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_use_bgra_format"
+            app:iconSpaceReserved="false"
+            app:key="Video|Use BGRA Format" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_force_convert_texture"
+            app:iconSpaceReserved="false"
+            app:key="Video|Force Convert Texture" />
+        <PreferenceScreen app:title="@string/emulator_settings_video_vulkan"
+            app:iconSpaceReserved="false"
+            app:key="Video|Vulkan" >
+
+            <PreferenceScreen app:title="@string/emulator_settings_video_vulkan_adapter"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Adapter" />
+
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vulkan_force_fifo_present_mode"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Force FIFO present mode" />
+
+
+            <aenu.preference.ListPreference app:title="@string/emulator_settings_video_vulkan_exclusive_fullscreen_mode"
+                app:iconSpaceReserved="false"
+                app:entries="@array/video_vulkan_exclusive_fullscreen_mode_entries"
+                app:entryValues="@array/video_vulkan_exclusive_fullscreen_mode_values"
+                app:key="Video|Vulkan|Exclusive Fullscreen Mode" />
+
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vulkan_asynchronous_texture_streaming_2"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Asynchronous Texture Streaming 2" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_vulkan_fidelityfx_cas_sharpening_intensity"
+                app:iconSpaceReserved="false"
+                app:min="0"
+                android:max="100"
+                app:showSeekBarValue="true"
+                app:key="Video|Vulkan|FidelityFX CAS Sharpening Intensity" />
+
+
+            <aenu.preference.ListPreference app:title="@string/emulator_settings_video_vulkan_asynchronous_queue_scheduler"
+                app:iconSpaceReserved="false"
+                app:entries="@array/video_vulkan_asynchronous_queue_scheduler_entries"
+                app:entryValues="@array/video_vulkan_asynchronous_queue_scheduler_values"
+                app:key="Video|Vulkan|Asynchronous Queue Scheduler" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_vulkan_vram_allocation_limit"
+                app:iconSpaceReserved="false"
+                app:min="256"
+                android:max="16384"
+                app:showSeekBarValue="true"
+                app:key="Video|Vulkan|VRAM allocation limit (MB)" />
+
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vulkan_use_custom_driver"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Use Custom Driver" />
+
+            <PreferenceScreen app:title="@string/emulator_settings_video_vulkan_custom_driver_library_path"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Custom Driver Library Path" />
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vulkan_custom_driver_force_max_clocks"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Custom Driver Force Max Clocks" />
+
+
+            <PreferenceScreen app:title="@string/emulator_settings_video_vulkan_debug"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Debug" >
+                <aenu.preference.CheckBoxPreference app:title="disable_barycentric_coords"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_barycentric_coords" />
+                <aenu.preference.CheckBoxPreference app:title="disable_conditional_rendering"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_conditional_rendering" />
+                <aenu.preference.CheckBoxPreference app:title="disable_debug_utils"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_debug_utils" />
+                <aenu.preference.CheckBoxPreference app:title="disable_external_memory_host"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_external_memory_host" />
+                <aenu.preference.CheckBoxPreference app:title="disable_framebuffer_loops"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_framebuffer_loops" />
+                <aenu.preference.CheckBoxPreference app:title="disable_sampler_mirror_clamped"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_sampler_mirror_clamped" />
+                <aenu.preference.CheckBoxPreference app:title="disable_shader_stencil_export"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_shader_stencil_export" />
+                <aenu.preference.CheckBoxPreference app:title="disable_surface_capabilities_2"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_surface_capabilities_2" />
+                <aenu.preference.CheckBoxPreference app:title="disable_synchronization_2"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_synchronization_2" />
+                <aenu.preference.CheckBoxPreference app:title="disable_unrestricted_depth_range"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_unrestricted_depth_range" />
+                <aenu.preference.CheckBoxPreference app:title="disable_extended_device_fault"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_extended_device_fault" />
+                <aenu.preference.CheckBoxPreference app:title="disable_texture_compression_bc"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_texture_compression_bc" />
+                <aenu.preference.CheckBoxPreference app:title="disable_multidraw"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_multidraw" />
+                <aenu.preference.CheckBoxPreference app:title="disable_depth_clamp"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_depth_clamp" />
+                <aenu.preference.CheckBoxPreference app:title="disable_shader_clip_distance"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_shader_clip_distance" />
+                <aenu.preference.CheckBoxPreference app:title="disable_depth_bounds"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_depth_bounds" />
+                <aenu.preference.CheckBoxPreference app:title="disable_large_points"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_large_points" />
+                <aenu.preference.CheckBoxPreference app:title="disable_wide_lines"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_wide_lines" />
+                <aenu.preference.CheckBoxPreference app:title="disable_logic_op"
+                    app:iconSpaceReserved="false"
+                    app:key="Video|Vulkan|Debug|disable_logic_op" />
+            </PreferenceScreen>
+
+        </PreferenceScreen>
+        <PreferenceScreen app:title="@string/emulator_settings_video_performance_overlay"
+            app:iconSpaceReserved="false"
+            app:key="Video|Performance Overlay" >
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_performance_overlay_enabled"
+                app:iconSpaceReserved="false"
+                app:key="Video|Performance Overlay|Enabled" />
+
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_performance_overlay_enable_framerate_graph"
+                app:iconSpaceReserved="false"
+                app:key="Video|Performance Overlay|Enable Framerate Graph" />
+
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_performance_overlay_enable_frametime_graph"
+                app:iconSpaceReserved="false"
+                app:key="Video|Performance Overlay|Enable Frametime Graph" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_performance_overlay_framerate_datapoints"
+                app:iconSpaceReserved="false"
+                app:min="2"
+                android:max="6000"
+                app:showSeekBarValue="true"
+                app:key="Video|Performance Overlay|Framerate datapoints" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_performance_overlay_frametime_datapoints"
+                app:iconSpaceReserved="false"
+                app:min="2"
+                android:max="6000"
+                app:showSeekBarValue="true"
+                app:key="Video|Performance Overlay|Frametime datapoints" />
+
+
+            <aenu.preference.ListPreference app:title="@string/emulator_settings_video_performance_overlay_detail_level"
+                app:iconSpaceReserved="false"
+                app:entries="@array/video_performance_overlay_detail_level_entries"
+                app:entryValues="@array/video_performance_overlay_detail_level_values"
+                app:key="Video|Performance Overlay|Detail level" />
+
+
+            <aenu.preference.ListPreference app:title="@string/emulator_settings_video_performance_overlay_framerate_graph_detail_level"
+                app:iconSpaceReserved="false"
+                app:entries="@array/video_performance_overlay_framerate_graph_detail_level_entries"
+                app:entryValues="@array/video_performance_overlay_framerate_graph_detail_level_values"
+                app:key="Video|Performance Overlay|Framerate graph detail level" />
+
+
+            <aenu.preference.ListPreference app:title="@string/emulator_settings_video_performance_overlay_frametime_graph_detail_level"
+                app:iconSpaceReserved="false"
+                app:entries="@array/video_performance_overlay_frametime_graph_detail_level_entries"
+                app:entryValues="@array/video_performance_overlay_frametime_graph_detail_level_values"
+                app:key="Video|Performance Overlay|Frametime graph detail level" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_performance_overlay_metrics_update_interval"
+                app:iconSpaceReserved="false"
+                app:min="1"
+                android:max="1000"
+                app:showSeekBarValue="true"
+                app:key="Video|Performance Overlay|Metrics update interval (ms)" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_performance_overlay_font_size"
+                app:iconSpaceReserved="false"
+                app:min="4"
+                android:max="36"
+                app:showSeekBarValue="true"
+                app:key="Video|Performance Overlay|Font size (px)" />
+
+
+            <aenu.preference.ListPreference app:title="@string/emulator_settings_video_performance_overlay_position"
+                app:iconSpaceReserved="false"
+                app:entries="@array/video_performance_overlay_position_entries"
+                app:entryValues="@array/video_performance_overlay_position_values"
+                app:key="Video|Performance Overlay|Position" />
+
+
+            <PreferenceScreen app:title="@string/emulator_settings_video_performance_overlay_font"
+                app:iconSpaceReserved="false"
+                app:key="Video|Performance Overlay|Font" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_performance_overlay_horizontal_margin"
+                app:iconSpaceReserved="false"
+                app:min="0"
+                android:max="1280"
+                app:showSeekBarValue="true"
+                app:key="Video|Performance Overlay|Horizontal Margin (px)" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_performance_overlay_vertical_margin"
+                app:iconSpaceReserved="false"
+                app:min="0"
+                android:max="720"
+                app:showSeekBarValue="true"
+                app:key="Video|Performance Overlay|Vertical Margin (px)" />
+
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_performance_overlay_center_horizontally"
+                app:iconSpaceReserved="false"
+                app:key="Video|Performance Overlay|Center Horizontally" />
+
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_performance_overlay_center_vertically"
+                app:iconSpaceReserved="false"
+                app:key="Video|Performance Overlay|Center Vertically" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_performance_overlay_opacity"
+                app:iconSpaceReserved="false"
+                app:min="0"
+                android:max="100"
+                app:showSeekBarValue="true"
+                app:key="Video|Performance Overlay|Opacity (%)" />
+
+        </PreferenceScreen>
+        <PreferenceScreen app:title="@string/emulator_settings_video_shader_loading_dialog"
+            app:iconSpaceReserved="false"
+            app:key="Video|Shader Loading Dialog" >
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_shader_loading_dialog_allow_custom_background"
+                app:iconSpaceReserved="false"
+                app:key="Video|Shader Loading Dialog|Allow custom background" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_shader_loading_dialog_darkening_effect_strength"
+                app:iconSpaceReserved="false"
+                app:min="0"
+                android:max="100"
+                app:showSeekBarValue="true"
+                app:key="Video|Shader Loading Dialog|Darkening effect strength" />
+
+
+            <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_shader_loading_dialog_blur_effect_strength"
+                app:iconSpaceReserved="false"
+                app:min="0"
+                android:max="100"
+                app:showSeekBarValue="true"
+                app:key="Video|Shader Loading Dialog|Blur effect strength" />
+
+        </PreferenceScreen>
+    </PreferenceScreen>
+    <PreferenceScreen app:title="@string/emulator_settings_audio"
+        app:iconSpaceReserved="false"
+        app:key="Audio" >
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_audio_renderer"
+            app:iconSpaceReserved="false"
+            app:entries="@array/audio_renderer_entries"
+            app:entryValues="@array/audio_renderer_values"
+            app:key="Audio|Renderer" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_audio_audio_provider"
+            app:iconSpaceReserved="false"
+            app:entries="@array/audio_audio_provider_entries"
+            app:entryValues="@array/audio_audio_provider_values"
+            app:key="Audio|Audio Provider" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_audio_rsxaudio_avport"
+            app:iconSpaceReserved="false"
+            app:entries="@array/audio_rsxaudio_avport_entries"
+            app:entryValues="@array/audio_rsxaudio_avport_values"
+            app:key="Audio|RSXAudio Avport" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_audio_dump_to_file"
+            app:iconSpaceReserved="false"
+            app:key="Audio|Dump to file" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_audio_convert_to_16_bit"
+            app:iconSpaceReserved="false"
+            app:key="Audio|Convert to 16 bit" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_audio_audio_format"
+            app:iconSpaceReserved="false"
+            app:entries="@array/audio_audio_format_entries"
+            app:entryValues="@array/audio_audio_format_values"
+            app:key="Audio|Audio Format" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_audio_audio_formats"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="255"
+            app:showSeekBarValue="true"
+            app:key="Audio|Audio Formats" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_audio_audio_channel_layout"
+            app:iconSpaceReserved="false"
+            app:entries="@array/audio_audio_channel_layout_entries"
+            app:entryValues="@array/audio_audio_channel_layout_values"
+            app:key="Audio|Audio Channel Layout" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_audio_master_volume"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="200"
+            app:showSeekBarValue="true"
+            app:key="Audio|Master Volume" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_audio_enable_buffering"
+            app:iconSpaceReserved="false"
+            app:key="Audio|Enable Buffering" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_audio_desired_audio_buffer_duration"
+            app:iconSpaceReserved="false"
+            app:min="4"
+            android:max="250"
+            app:showSeekBarValue="true"
+            app:key="Audio|Desired Audio Buffer Duration" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_audio_enable_time_stretching"
+            app:iconSpaceReserved="false"
+            app:key="Audio|Enable Time Stretching" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_audio_disable_sampling_skip"
+            app:iconSpaceReserved="false"
+            app:key="Audio|Disable Sampling Skip" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_audio_time_stretching_threshold"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="100"
+            app:showSeekBarValue="true"
+            app:key="Audio|Time Stretching Threshold" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_audio_microphone_type"
+            app:iconSpaceReserved="false"
+            app:entries="@array/audio_microphone_type_entries"
+            app:entryValues="@array/audio_microphone_type_values"
+            app:key="Audio|Microphone Type" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_audio_music_handler"
+            app:iconSpaceReserved="false"
+            app:entries="@array/audio_music_handler_entries"
+            app:entryValues="@array/audio_music_handler_values"
+            app:key="Audio|Music Handler" />
+
+    </PreferenceScreen>
+    <PreferenceScreen app:title="@string/emulator_settings_input_output"
+        app:iconSpaceReserved="false"
+        app:key="Input/Output" >
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_keyboard"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_keyboard_entries"
+            app:entryValues="@array/input_output_keyboard_values"
+            app:key="Input/Output|Keyboard" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_mouse"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_mouse_entries"
+            app:entryValues="@array/input_output_mouse_values"
+            app:key="Input/Output|Mouse" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_camera"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_camera_entries"
+            app:entryValues="@array/input_output_camera_values"
+            app:key="Input/Output|Camera" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_camera_type"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_camera_type_entries"
+            app:entryValues="@array/input_output_camera_type_values"
+            app:key="Input/Output|Camera type" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_camera_flip"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_camera_flip_entries"
+            app:entryValues="@array/input_output_camera_flip_values"
+            app:key="Input/Output|Camera flip" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_move"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_move_entries"
+            app:entryValues="@array/input_output_move_values"
+            app:key="Input/Output|Move" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_buzz_emulated_controller"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_buzz_emulated_controller_entries"
+            app:entryValues="@array/input_output_buzz_emulated_controller_values"
+            app:key="Input/Output|Buzz emulated controller" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_turntable_emulated_controller"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_turntable_emulated_controller_entries"
+            app:entryValues="@array/input_output_turntable_emulated_controller_values"
+            app:key="Input/Output|Turntable emulated controller" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_ghltar_emulated_controller"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_ghltar_emulated_controller_entries"
+            app:entryValues="@array/input_output_ghltar_emulated_controller_values"
+            app:key="Input/Output|GHLtar emulated controller" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_input_output_pad_handler_mode"
+            app:iconSpaceReserved="false"
+            app:entries="@array/input_output_pad_handler_mode_entries"
+            app:entryValues="@array/input_output_pad_handler_mode_values"
+            app:key="Input/Output|Pad handler mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_input_output_keep_pads_connected"
+            app:iconSpaceReserved="false"
+            app:key="Input/Output|Keep pads connected" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_input_output_pad_handler_sleep"
+            app:iconSpaceReserved="false"
+            app:min="0"
+            android:max="100000"
+            app:showSeekBarValue="true"
+            app:key="Input/Output|Pad handler sleep (microseconds)" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_input_output_background_input_enabled"
+            app:iconSpaceReserved="false"
+            app:key="Input/Output|Background input enabled" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_input_output_show_move_cursor"
+            app:iconSpaceReserved="false"
+            app:key="Input/Output|Show move cursor" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_input_output_lock_overlay_input_to_player_one"
+            app:iconSpaceReserved="false"
+            app:key="Input/Output|Lock overlay input to player one" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_input_output_load_sdl_gamecontroller_mappings"
+            app:iconSpaceReserved="false"
+            app:key="Input/Output|Load SDL GameController Mappings" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_input_output_io_debug_overlay"
+            app:iconSpaceReserved="false"
+            app:key="Input/Output|IO Debug overlay" />
+
+    </PreferenceScreen>
+    <PreferenceScreen app:title="@string/emulator_settings_system"
+        app:iconSpaceReserved="false"
+        app:key="System" >
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_system_license_area"
+            app:iconSpaceReserved="false"
+            app:entries="@array/system_license_area_entries"
+            app:entryValues="@array/system_license_area_values"
+            app:key="System|License Area" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_system_language"
+            app:iconSpaceReserved="false"
+            app:entries="@array/system_language_entries"
+            app:entryValues="@array/system_language_values"
+            app:key="System|Language" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_system_keyboard_type"
+            app:iconSpaceReserved="false"
+            app:entries="@array/system_keyboard_type_entries"
+            app:entryValues="@array/system_keyboard_type_values"
+            app:key="System|Keyboard Type" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_system_enter_button_assignment"
+            app:iconSpaceReserved="false"
+            app:entries="@array/system_enter_button_assignment_entries"
+            app:entryValues="@array/system_enter_button_assignment_values"
+            app:key="System|Enter button assignment" />
+
+    </PreferenceScreen>
+    <PreferenceScreen app:title="@string/emulator_settings_savestate"
+        app:iconSpaceReserved="false"
+        app:key="Savestate" >
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_savestate_start_paused"
+            app:iconSpaceReserved="false"
+            app:key="Savestate|Start Paused" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_savestate_suspend_emulation_savestate_mode"
+            app:iconSpaceReserved="false"
+            app:key="Savestate|Suspend Emulation Savestate Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_savestate_compatible_savestate_mode"
+            app:iconSpaceReserved="false"
+            app:key="Savestate|Compatible Savestate Mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_savestate_inspection_mode_savestates"
+            app:iconSpaceReserved="false"
+            app:key="Savestate|Inspection Mode Savestates" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_savestate_save_disc_game_data"
+            app:iconSpaceReserved="false"
+            app:key="Savestate|Save Disc Game Data" />
+
+    </PreferenceScreen>
+    <PreferenceScreen app:title="@string/emulator_settings_miscellaneous"
+        app:iconSpaceReserved="false"
+        app:key="Miscellaneous" >
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_automatically_start_games_after_boot"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Automatically start games after boot" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_exit_rpcs3_when_process_finishes"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Exit RPCS3 when process finishes" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_pause_emulation_on_rpcs3_focus_loss"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Pause emulation on RPCS3 focus loss" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_start_games_in_fullscreen_mode"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Start games in fullscreen mode" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_show_trophy_popups"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Show trophy popups" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_show_rpcn_popups"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Show RPCN popups" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_show_shader_compilation_hint"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Show shader compilation hint" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_show_ppu_compilation_hint"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Show PPU compilation hint" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_show_pressure_intensity_toggle_hint"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Show pressure intensity toggle hint" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_show_analog_limiter_toggle_hint"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Show analog limiter toggle hint" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_show_autosave_autoload_hint"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Show autosave/autoload hint" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_use_native_user_interface"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Use native user interface" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_silence_all_logs"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Silence All Logs" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_pause_emulation_during_home_menu"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Pause Emulation During Home Menu" />
+
+
+        <aenu.preference.ListPreference app:title="@string/emulator_settings_miscellaneous_font_file_selection"
+            app:iconSpaceReserved="false"
+            app:entries="@array/miscellaneous_font_file_selection_entries"
+            app:entryValues="@array/miscellaneous_font_file_selection_values"
+            app:key="Miscellaneous|Font File Selection" />
+
+
+        <PreferenceScreen app:title="@string/emulator_settings_miscellaneous_custom_font_file_path"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Custom Font File Path" />
+
+
+        <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_miscellaneous_font_size"
+            app:iconSpaceReserved="false"
+            app:min="12"
+            android:max="26"
+            app:showSeekBarValue="true"
+            app:key="Miscellaneous|Font Size" />
+
+
+        <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_miscellaneous_memory_debug_overlay"
+            app:iconSpaceReserved="false"
+            app:key="Miscellaneous|Memory Debug overlay" />
+
+    </PreferenceScreen>
+</PreferenceScreen>
