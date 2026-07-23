@@ -37,7 +37,13 @@ android {
         }
     }
 
-    signingConfigs { release {} debug {} }
+    signingConfigs {
+    debug {
+    }
+
+    release {
+    }
+}
 
     buildTypes {
         release {
