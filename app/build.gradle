@@ -28,14 +28,13 @@ android {
         }
     }
 
-    splits {
         abi {
-            enable true
-            reset()
-            include "arm64-v8a"
-            universalApk false
-        }
+        enable true
+        reset()
+        include "arm64-v8a"
+        universalApk false
     }
+}
 
     signingConfigs {
     debug {
