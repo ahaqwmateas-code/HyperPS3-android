@@ -26,7 +26,10 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++17 -fPIC"
-                arguments "-DANDROID_STL=c++_static"
+                arguments "-DANDROID_STL=c++_static",
+                          "-DCMAKE_CXX_FLAGS=-O3 -DNDEBUG -ffast-math",
+                          "-DCMAKE_C_FLAGS=-O3 -DNDEBUG -ffast-math",
+                          "-DCMAKE_BUILD_TYPE=Release"
             }
         }
     }
