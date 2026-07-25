@@ -17,12 +17,14 @@ jobs:
 
       - name: Install SDK components
         run: |
-          sdkmanager "build-tools;35.0.0" "platforms;android-35" "ndk;25.2.9519653" "cmake;3.31.6"
+          sdkmanager "build-tools;35.0.0" "platforms;android-35" "ndk;27.0.12077973" "cmake;3.31.6"
 
       - name: Build APK
+        env:
+          ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/27.0.12077973
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug -Pandroid.ndkVersion=27.0.12077973
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
