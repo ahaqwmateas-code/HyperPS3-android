@@ -13,3 +13,6 @@ android-sdk/
 android-ndk-r27c-linux.zip
 box64droid
 start-box64droid
+local.properties
+.cxx/
+build/
