@@ -10,11 +10,15 @@ android {
         ndk {
             abiFilters 'arm64-v8a'
         }
-        ndk {
-            abiFilters 'arm64-v8a'
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_static",
+                          "-DCMAKE_CXX_FLAGS=-O3 -DNDEBUG -ffast-math",
+                          "-DCMAKE_BUILD_TYPE=Release"
+            }
         }
-        ndk {
-            abiFilters 'arm64-v8a'
+        }
+        }
         }
         applicationId "com.hyperps3.emulator"
         minSdk 29
@@ -22,6 +26,7 @@ android {
         versionCode 1
         versionName "1.0"
         ndkVersion "27.0.12077973"
+<<<<<<< HEAD
 
         externalNativeBuild {
             cmake {
@@ -31,6 +36,8 @@ android {
                           "-DCMAKE_C_FLAGS=-O3 -DNDEBUG -ffast-math",
                           "-DCMAKE_BUILD_TYPE=Release"
             }
+=======
+>>>>>>> 72ef6bad3b590dc9c54f634357ca6509e7c89e5a
         }
     }
 
@@ -40,12 +47,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    externalNativeBuild {
-        cmake {
-            path file("src/main/cpp/CMakeLists.txt")
-            version "3.31.6"
-        }
     }
 
     packaging {
