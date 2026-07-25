@@ -1,32 +1,23 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id 'com.android.application'
 }
 
 android {
     namespace 'com.hyperps3.emulator'
     compileSdk 35
 
-    // ✅ NDK 27 ONLY — auto toolchain, no hardcoded paths
-    ndkVersion "27.0.12077973"
-
     defaultConfig {
         applicationId "com.hyperps3.emulator"
-        minSdk 28
-        targetSdk 34
-        versionCode 19
-        versionName "1.19a"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        // ✅ ONE PLACE ONLY: ARM64 ABI lock
-        ndk {
-            abiFilters "arm64-v8a"
-        }
+        minSdk 29
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+        ndkVersion "25.2.9519653"
 
         externalNativeBuild {
             cmake {
-                // ✅ abiFilters REMOVED here — ndk {} above handles it
-                cppFlags ""
-                version "3.31.6"
+                cppFlags "-std=c++17 -fPIC"
+                arguments "-DANDROID_STL=c++_static"
             }
         }
     }
@@ -34,16 +25,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            minifyEnabled false
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
     }
 
     externalNativeBuild {
@@ -61,13 +44,8 @@ android {
 }
 
 dependencies {
-    implementation libs.appcompat
-    implementation libs.material
-    implementation libs.activity
-    implementation libs.constraintlayout
-    implementation libs.preference
-    testImplementation libs.junit
-    androidTestImplementation libs.ext.junit
-    androidTestImplementation libs.espresso.core
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.preference:preference:1.2.1'
 }
-
