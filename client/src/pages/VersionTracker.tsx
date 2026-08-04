@@ -41,10 +41,10 @@ export default function VersionTracker() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 flex-shrink-0"
-                onClick={() => window.open("https://files.manuscdn.com/user_upload_by_module/session_file/310519663872070748/rkjVoglTZzhtyEVw.apk", "_blank")}
+                onClick={() => window.open("/manus-storage/HyperPS3_signed_32de91a1.apk", "_blank")}
               >
                 <Download className="w-5 h-5 mr-2" />
-                Download APK (Ultra-Fast)
+                Download APK (Fixed - 41MB)
               </Button>
             </div>
           </div>
