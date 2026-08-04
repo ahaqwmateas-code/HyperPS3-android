@@ -5,13 +5,27 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import GameCompatibility from "./pages/GameCompatibility";
+import PerformanceProfiles from "./pages/PerformanceProfiles";
+import BugReport from "./pages/BugReport";
+import SmartFixBot from "./pages/SmartFixBot";
+import AdminDashboard from "./pages/AdminDashboard";
+import SettingsGuide from "./pages/SettingsGuide";
+import VersionTracker from "./pages/VersionTracker";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
+      <Route path="/" component={Home} />
+      <Route path="/compatibility" component={GameCompatibility} />
+      <Route path="/profiles" component={PerformanceProfiles} />
+      <Route path="/bug-report" component={BugReport} />
+      <Route path="/smart-fix" component={SmartFixBot} />
+      <Route path="/admin" component={AdminDashboard} />
+      <Route path="/settings-guide" component={SettingsGuide} />
+      <Route path="/versions" component={VersionTracker} />
+      <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
@@ -27,7 +41,7 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="light"
+        defaultTheme="dark"
         // switchable
       >
         <TooltipProvider>

@@ -1,6 +1,16 @@
-import { eq } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { 
+  InsertUser, users, 
+  bugReports, InsertBugReport, BugReport,
+  gameCompatibility, InsertGameCompatibility, GameCompatibility,
+  performanceProfiles, InsertPerformanceProfile, PerformanceProfile,
+  emulatorVersions, InsertEmulatorVersion, EmulatorVersion,
+  notifications, InsertNotification, Notification,
+  settingsGuide, InsertSettingsGuide, SettingsGuide,
+  chatSessions, InsertChatSession, ChatSession,
+  chatMessages, InsertChatMessage, ChatMessage
+} from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -35,7 +45,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     };
     const updateSet: Record<string, unknown> = {};
 
-    const textFields = ["name", "email", "loginMethod"] as const;
+    const textFields = ["name", "email", "loginMethod", "deviceInfo"] as const;
     type TextField = (typeof textFields)[number];
 
     const assignNullable = (field: TextField) => {
@@ -89,4 +99,203 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Bug Reports
+export async function submitBugReport(report: InsertBugReport): Promise<BugReport> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(bugReports).values(report);
+  const id = result[0].insertId;
+  const created = await db.select().from(bugReports).where(eq(bugReports.id, id as number)).limit(1);
+  return created[0];
+}
+
+export async function getBugReports(limit: number = 50, offset: number = 0) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(bugReports).orderBy(desc(bugReports.createdAt)).limit(limit).offset(offset);
+}
+
+export async function updateBugReportStatus(id: number, status: string, adminNotes?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const updateData: Record<string, unknown> = { status };
+  if (adminNotes !== undefined) updateData.adminNotes = adminNotes;
+  
+  await db.update(bugReports).set(updateData).where(eq(bugReports.id, id));
+}
+
+// Game Compatibility
+export async function searchGameCompatibility(query: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  // Simple search by title or serial
+  const results = await db.select().from(gameCompatibility)
+    .where(
+      query.length === 4 
+        ? eq(gameCompatibility.gameSerial, query.toUpperCase())
+        : undefined
+    );
+  
+  return results;
+}
+
+export async function getGameCompatibilityBySerial(serial: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.select().from(gameCompatibility)
+    .where(eq(gameCompatibility.gameSerial, serial.toUpperCase()))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function upsertGameCompatibility(game: InsertGameCompatibility) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.insert(gameCompatibility).values(game).onDuplicateKeyUpdate({
+    set: {
+      ppuDecoder: game.ppuDecoder,
+      spuMode: game.spuMode,
+      renderingFlags: game.renderingFlags,
+      recommendedSettings: game.recommendedSettings,
+      compatibilityNotes: game.compatibilityNotes,
+    }
+  });
+}
+
+// Performance Profiles
+export async function getPerformanceProfiles() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(performanceProfiles).orderBy(performanceProfiles.name);
+}
+
+export async function getPerformanceProfileByName(name: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.select().from(performanceProfiles)
+    .where(eq(performanceProfiles.name, name))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+// Emulator Versions
+export async function getLatestEmulatorVersion() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.select().from(emulatorVersions)
+    .where(eq(emulatorVersions.isLatest, true))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getEmulatorVersions(limit: number = 10) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(emulatorVersions)
+    .orderBy(desc(emulatorVersions.releaseDate))
+    .limit(limit);
+}
+
+export async function createEmulatorVersion(version: InsertEmulatorVersion) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  // Mark all others as not latest if this one is latest
+  if (version.isLatest) {
+    await db.update(emulatorVersions).set({ isLatest: false });
+  }
+  
+  await db.insert(emulatorVersions).values(version);
+}
+
+// Notifications
+export async function createNotification(notification: InsertNotification) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.insert(notifications).values(notification);
+}
+
+export async function getUserNotifications(userId: number, limit: number = 20) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(notifications)
+    .where(eq(notifications.userId, userId))
+    .orderBy(desc(notifications.createdAt))
+    .limit(limit);
+}
+
+export async function markNotificationAsRead(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.update(notifications).set({ isRead: true }).where(eq(notifications.id, id));
+}
+
+// Settings Guide
+export async function getSettingsGuideByCategory(category: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(settingsGuide)
+    .where(eq(settingsGuide.category, category))
+    .orderBy(settingsGuide.settingKey);
+}
+
+export async function getAllSettingsGuide() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(settingsGuide)
+    .orderBy(settingsGuide.category, settingsGuide.settingKey);
+}
+
+// Chat Sessions & Messages
+export async function createChatSession(session: InsertChatSession) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.insert(chatSessions).values(session);
+}
+
+export async function getChatSession(sessionId: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.select().from(chatSessions)
+    .where(eq(chatSessions.sessionId, sessionId))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function addChatMessage(message: InsertChatMessage) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.insert(chatMessages).values(message);
+}
+
+export async function getChatMessages(sessionId: string, limit: number = 50) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(chatMessages)
+    .where(eq(chatMessages.sessionId, sessionId))
+    .orderBy(chatMessages.createdAt)
+    .limit(limit);
+}
