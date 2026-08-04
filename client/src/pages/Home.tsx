@@ -216,6 +216,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Download Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border-y border-blue-500/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-8 inline-block">
+            <div className="px-4 py-2 bg-green-500/20 border border-green-500/50 rounded-full text-green-300 text-sm font-medium">
+              Download Now
+            </div>
+          </div>
+          <h2 className="text-4xl font-bold mb-6">Get HyperPS3 Emulator</h2>
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Download the latest HyperPS3 emulator APK and start playing PS3 games on your Android device with optimized performance.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-lg px-8"
+              onClick={() => window.open("https://files.manuscdn.com/user_upload_by_module/session_file/310519663872070748/bwphZdrbjnXxEdfE.apk", "_blank")}
+            >
+              <Download className="w-5 h-5 mr-2" />
+              Download v2.5.0 (39MB)
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-blue-500/50 text-white hover:bg-blue-500/10 text-lg px-8"
+              onClick={() => navigate("/versions")}
+            >
+              View All Versions
+            </Button>
+          </div>
+          <p className="text-sm text-gray-400 mt-6">Free • No Ads • Optimized for Heavy Games</p>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
