@@ -55,6 +55,14 @@ export const appRouter = router({
         return db.getBugReports(input.limit, input.offset);
       }),
 
+    myReports: protectedProcedure
+      .input(z.object({
+        limit: z.number().default(50),
+      }))
+      .query(async ({ input, ctx }) => {
+        return db.getUserBugReports(ctx.user.id, input.limit);
+      }),
+
     updateStatus: adminProcedure
       .input(z.object({
         id: z.number(),

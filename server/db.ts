@@ -117,6 +117,13 @@ export async function getBugReports(limit: number = 50, offset: number = 0) {
   return db.select().from(bugReports).orderBy(desc(bugReports.createdAt)).limit(limit).offset(offset);
 }
 
+export async function getUserBugReports(userId: number, limit: number = 50) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(bugReports).where(eq(bugReports.userId, userId)).orderBy(desc(bugReports.createdAt)).limit(limit);
+}
+
 export async function updateBugReportStatus(id: number, status: string, adminNotes?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
