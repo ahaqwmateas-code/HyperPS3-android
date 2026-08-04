@@ -232,10 +232,10 @@ export default function Home() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-lg px-8"
-              onClick={() => window.open("https://files.manuscdn.com/user_upload_by_module/session_file/310519663872070748/bwphZdrbjnXxEdfE.apk", "_blank")}
+              onClick={() => window.open("https://files.manuscdn.com/user_upload_by_module/session_file/310519663872070748/rkjVoglTZzhtyEVw.apk", "_blank")}
             >
               <Download className="w-5 h-5 mr-2" />
-              Download v2.5.0 (39MB)
+              Download v2.5.0 Ultra-Fast (32MB)
             </Button>
             <Button
               size="lg"
