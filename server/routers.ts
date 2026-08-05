@@ -388,6 +388,60 @@ export const appRouter = router({
       }),
   }),
 
+  // Auto-Update System
+  autoUpdate: router({
+    checkForUpdates: publicProcedure
+      .query(async () => {
+        const { checkForAllUpdates } = await import('./autoUpdateService');
+        return checkForAllUpdates();
+      }),
+
+    getLatestAppVersion: publicProcedure
+      .query(async () => {
+        const { getLatestAppUpdate } = await import('./autoUpdateService');
+        return getLatestAppUpdate();
+      }),
+
+    getPendingCrashFixes: publicProcedure
+      .query(async () => {
+        const { getPendingCrashFixUpdates } = await import('./autoUpdateService');
+        return getPendingCrashFixUpdates();
+      }),
+
+    getPendingMods: publicProcedure
+      .query(async () => {
+        const { getPendingModUpdates } = await import('./autoUpdateService');
+        return getPendingModUpdates();
+      }),
+
+    markUpdateInstalled: publicProcedure
+      .input(z.object({ version: z.string() }))
+      .mutation(async ({ input }) => {
+        const { markUpdateAsInstalled } = await import('./autoUpdateService');
+        return markUpdateAsInstalled(input.version);
+      }),
+
+    applyCrashFix: publicProcedure
+      .input(z.object({ fixId: z.string() }))
+      .mutation(async ({ input }) => {
+        const { markCrashFixAsApplied } = await import('./autoUpdateService');
+        return markCrashFixAsApplied(input.fixId);
+      }),
+
+    enableMod: publicProcedure
+      .input(z.object({ modId: z.string() }))
+      .mutation(async ({ input }) => {
+        const { markModAsEnabled } = await import('./autoUpdateService');
+        return markModAsEnabled(input.modId);
+      }),
+
+    getUpdateStatistics: publicProcedure
+      .query(async () => {
+        const { getUpdateStatistics } = await import('./autoUpdateService');
+        return getUpdateStatistics();
+      }),
+  }),
+
   // App Configuration
   appConfig: router({
     getConfig: publicProcedure
