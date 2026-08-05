@@ -343,6 +343,39 @@ export const appRouter = router({
       }),
   }),
 
+  // App Configuration
+  appConfig: router({
+    getConfig: publicProcedure
+      .query(async () => {
+        const { getAppConfig } = await import('./appConfigService');
+        return getAppConfig();
+      }),
+
+    getGameSettings: publicProcedure
+      .input(z.object({
+        gameSerial: z.string(),
+      }))
+      .query(async ({ input }) => {
+        const { getGameOptimizedSettings } = await import('./appConfigService');
+        return getGameOptimizedSettings(input.gameSerial);
+      }),
+
+    getPerformanceProfile: publicProcedure
+      .input(z.object({
+        level: z.string(),
+      }))
+      .query(async ({ input }) => {
+        const { getPerformanceProfile } = await import('./appConfigService');
+        return getPerformanceProfile(input.level);
+      }),
+
+    getSpecialFeatures: publicProcedure
+      .query(async () => {
+        const { getAllSpecialFeatures } = await import('./appConfigService');
+        return getAllSpecialFeatures();
+      }),
+  }),
+
   // Chat
   chat: router({
     createSession: publicProcedure
