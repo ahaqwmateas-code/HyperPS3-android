@@ -16,6 +16,7 @@ import UserDashboard from "./pages/UserDashboard";
 import CrashMonitor from "./pages/CrashMonitor";
 import SpecialFeatures from "./pages/SpecialFeatures";
 import AppSettings from "./pages/AppSettings";
+import CrashFixes from "./pages/CrashFixes";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -33,6 +34,7 @@ function Router() {
       <Route path="/crash-monitor" component={CrashMonitor} />
       <Route path="/special-features" component={SpecialFeatures} />
       <Route path="/app-settings" component={AppSettings} />
+      <Route path="/crash-fixes" component={CrashFixes} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

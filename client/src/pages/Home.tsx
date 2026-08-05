@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Zap, Gamepad2, Settings, BarChart3, MessageSquare, Download } from "lucide-react";
+import { ArrowRight, Zap, Gamepad2, Settings, BarChart3, MessageSquare, Download, AlertCircle } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function Home() {
@@ -145,6 +145,22 @@ export default function Home() {
               <CardContent>
                 <p className="text-gray-300">
                   Search by title or serial number to find perfectly tuned settings for your favorite games.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Crash Fixes */}
+            <Card className="bg-white/5 border-white/10 hover:border-red-500/50 transition-colors cursor-pointer" onClick={() => navigate("/crash-fixes")}>
+              <CardHeader>
+                <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <AlertCircle className="w-6 h-6 text-red-400" />
+                </div>
+                <CardTitle>Crash Fixes & Mods</CardTitle>
+                <CardDescription>Stop crashes instantly</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300">
+                  Proven crash fixes with 95-99% success rate. Apply special mods to fix any game crash.
                 </p>
               </CardContent>
             </Card>

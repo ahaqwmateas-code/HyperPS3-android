@@ -343,6 +343,51 @@ export const appRouter = router({
       }),
   }),
 
+  // Crash Fix Profiles & Special Mods
+  crashFixes: router({
+    getCrashFixForGame: publicProcedure
+      .input(z.object({
+        gameSerial: z.string(),
+        crashType: z.string().optional(),
+      }))
+      .query(async ({ input }) => {
+        const { getCrashFixProfile, getGameCrashFixes } = await import('./crashFixProfiles');
+        if (input.crashType) {
+          return getCrashFixProfile(input.gameSerial, input.crashType);
+        }
+        return getGameCrashFixes(input.gameSerial);
+      }),
+
+    getSpecialMods: publicProcedure
+      .input(z.object({
+        gameSerial: z.string(),
+      }))
+      .query(async ({ input }) => {
+        const { getGameMods } = await import('./crashFixProfiles');
+        return getGameMods(input.gameSerial);
+      }),
+
+    getRecommendedMods: publicProcedure
+      .input(z.object({
+        gameSerial: z.string(),
+        deviceType: z.enum(['budget', 'midrange', 'flagship']),
+      }))
+      .query(async ({ input }) => {
+        const { getRecommendedMods } = await import('./crashFixProfiles');
+        return getRecommendedMods(input.gameSerial, input.deviceType);
+      }),
+
+    getOptimalSettings: publicProcedure
+      .input(z.object({
+        gameSerial: z.string(),
+        appliedMods: z.array(z.string()).optional(),
+      }))
+      .query(async ({ input }) => {
+        const { getOptimalGameSettings } = await import('./crashFixProfiles');
+        return getOptimalGameSettings(input.gameSerial, input.appliedMods);
+      }),
+  }),
+
   // App Configuration
   appConfig: router({
     getConfig: publicProcedure
