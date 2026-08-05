@@ -85,9 +85,9 @@ export default function Home() {
               size="lg"
               variant="outline"
               className="border-blue-500/50 text-white hover:bg-blue-500/10 text-lg px-8"
-              onClick={() => navigate("/smart-fix")}
+              onClick={() => navigate("/crash-monitor")}
             >
-              <Zap className="w-5 h-5 mr-2" /> Smart Fix Bot
+              <Zap className="w-5 h-5 mr-2" /> Crash Monitor
             </Button>
           </div>
 
@@ -149,18 +149,18 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            {/* Performance Profiles */}
-            <Card className="bg-white/5 border-white/10 hover:border-pink-500/50 transition-colors">
+            {/* Special Features */}
+            <Card className="bg-white/5 border-white/10 hover:border-pink-500/50 transition-colors cursor-pointer" onClick={() => navigate("/special-features")}>
               <CardHeader>
                 <div className="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4">
                   <Zap className="w-6 h-6 text-pink-400" />
                 </div>
-                <CardTitle>Performance Profiles</CardTitle>
-                <CardDescription>Turbo, Balanced, Compatibility</CardDescription>
+                <CardTitle>Special Features & Mods</CardTitle>
+                <CardDescription>Advanced optimization</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-300">
-                  Download pre-built config profiles optimized for different device types and gaming styles.
+                  Unlock special features, performance mods, and advanced settings powered by Smartest Engine.
                 </p>
               </CardContent>
             </Card>

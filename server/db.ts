@@ -9,7 +9,9 @@ import {
   notifications, InsertNotification, Notification,
   settingsGuide, InsertSettingsGuide, SettingsGuide,
   chatSessions, InsertChatSession, ChatSession,
-  chatMessages, InsertChatMessage, ChatMessage
+  chatMessages, InsertChatMessage, ChatMessage,
+  crashLogs, InsertCrashLog, CrashLog,
+  autoFixProfiles, InsertAutoFixProfile, AutoFixProfile
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -305,4 +307,85 @@ export async function getChatMessages(sessionId: string, limit: number = 50) {
     .where(eq(chatMessages.sessionId, sessionId))
     .orderBy(chatMessages.createdAt)
     .limit(limit);
+}
+
+
+// Crash Logs & Auto-Fix
+export async function reportCrash(crash: InsertCrashLog): Promise<CrashLog> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(crashLogs).values(crash);
+  const id = result[0].insertId;
+  const created = await db.select().from(crashLogs).where(eq(crashLogs.id, id as number)).limit(1);
+  return created[0];
+}
+
+export async function getCrashesForGame(gameSerial: string, limit: number = 20) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(crashLogs)
+    .where(eq(crashLogs.gameSerial, gameSerial))
+    .orderBy(desc(crashLogs.createdAt))
+    .limit(limit);
+}
+
+export async function getRecentCrashes(limit: number = 50) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(crashLogs)
+    .orderBy(desc(crashLogs.createdAt))
+    .limit(limit);
+}
+
+export async function createAutoFixProfile(profile: InsertAutoFixProfile): Promise<AutoFixProfile> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(autoFixProfiles).values(profile);
+  const id = result[0].insertId;
+  const created = await db.select().from(autoFixProfiles).where(eq(autoFixProfiles.id, id as number)).limit(1);
+  return created[0];
+}
+
+export async function getAutoFixProfilesForGame(gameSerial: string, crashType: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return db.select().from(autoFixProfiles)
+    .where(
+      and(
+        eq(autoFixProfiles.gameSerial, gameSerial),
+        eq(autoFixProfiles.triggerCrashType, crashType)
+      )
+    )
+    .orderBy(autoFixProfiles.priority);
+}
+
+export async function updateAutoFixStats(id: number, applied: boolean, success: boolean) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const updates: Record<string, unknown> = {
+    appliedCount: (await db.select().from(autoFixProfiles).where(eq(autoFixProfiles.id, id)).limit(1))[0]?.appliedCount || 0 + 1
+  };
+  
+  if (success) {
+    updates.successCount = (await db.select().from(autoFixProfiles).where(eq(autoFixProfiles.id, id)).limit(1))[0]?.successCount || 0 + 1;
+    updates.successRate = Math.round(((updates.successCount as number) / (updates.appliedCount as number)) * 100);
+  }
+  
+  await db.update(autoFixProfiles).set(updates).where(eq(autoFixProfiles.id, id));
+}
+
+export async function markCrashAsFixed(crashLogId: number, fixedByAutoFix: boolean = true) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.update(crashLogs).set({
+    fixedByAutoFix,
+    autoFixApplied: true
+  }).where(eq(crashLogs.id, crashLogId));
 }

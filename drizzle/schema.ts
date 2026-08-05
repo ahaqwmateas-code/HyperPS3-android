@@ -162,3 +162,46 @@ export const chatMessages = mysqlTable("chatMessages", {
 
 export type ChatMessage = typeof chatMessages.$inferSelect;
 export type InsertChatMessage = typeof chatMessages.$inferInsert;
+
+/**
+ * Crash logs for detecting game crashes and patterns
+ */
+export const crashLogs = mysqlTable("crashLogs", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId"),
+  gameSerial: varchar("gameSerial", { length: 64 }).notNull(),
+  gameTitle: varchar("gameTitle", { length: 256 }),
+  deviceInfo: text("deviceInfo"),
+  crashType: varchar("crashType", { length: 128 }).notNull(), // "boot_crash", "gameplay_crash", "audio_crash", "rendering_crash"
+  errorMessage: text("errorMessage"),
+  stackTrace: text("stackTrace"),
+  emulatorVersion: varchar("emulatorVersion", { length: 64 }),
+  performanceProfile: varchar("performanceProfile", { length: 128 }), // Which profile was active
+  autoFixApplied: boolean("autoFixApplied").default(false).notNull(),
+  fixedByAutoFix: boolean("fixedByAutoFix").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CrashLog = typeof crashLogs.$inferSelect;
+export type InsertCrashLog = typeof crashLogs.$inferInsert;
+
+/**
+ * Auto-fix profiles that are applied when crashes are detected
+ */
+export const autoFixProfiles = mysqlTable("autoFixProfiles", {
+  id: int("id").autoincrement().primaryKey(),
+  gameSerial: varchar("gameSerial", { length: 64 }).notNull(),
+  gameTitle: varchar("gameTitle", { length: 256 }),
+  triggerCrashType: varchar("triggerCrashType", { length: 128 }).notNull(), // The crash type that triggers this fix
+  fixName: varchar("fixName", { length: 256 }).notNull(), // e.g., "Disable SPU Optimization", "Lower PPU Decoder"
+  recommendedSettings: text("recommendedSettings").notNull(), // JSON of settings to apply
+  successRate: int("successRate").default(0).notNull(), // Percentage of times this fix worked (0-100)
+  appliedCount: int("appliedCount").default(0).notNull(), // How many times this fix was applied
+  successCount: int("successCount").default(0).notNull(), // How many times it actually fixed the crash
+  priority: int("priority").default(1).notNull(), // 1=highest priority, lower number = try first
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type AutoFixProfile = typeof autoFixProfiles.$inferSelect;
+export type InsertAutoFixProfile = typeof autoFixProfiles.$inferInsert;

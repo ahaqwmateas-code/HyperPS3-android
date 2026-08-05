@@ -13,6 +13,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import SettingsGuide from "./pages/SettingsGuide";
 import VersionTracker from "./pages/VersionTracker";
 import UserDashboard from "./pages/UserDashboard";
+import CrashMonitor from "./pages/CrashMonitor";
+import SpecialFeatures from "./pages/SpecialFeatures";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -27,6 +29,8 @@ function Router() {
       <Route path="/settings-guide" component={SettingsGuide} />
       <Route path="/versions" component={VersionTracker} />
       <Route path="/dashboard" component={UserDashboard} />
+      <Route path="/crash-monitor" component={CrashMonitor} />
+      <Route path="/special-features" component={SpecialFeatures} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -15,6 +15,13 @@
       "when": 1785849823063,
       "tag": "0001_previous_hex",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1785900410157,
+      "tag": "0002_conscious_madame_web",
+      "breakpoints": true
     }
   ]
 }

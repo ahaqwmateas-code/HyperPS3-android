@@ -217,6 +217,132 @@ export const appRouter = router({
     }),
   }),
 
+  // Crash Detection & Auto-Fix
+  crashes: router({
+    report: publicProcedure
+      .input(z.object({
+        gameSerial: z.string().min(1),
+        gameTitle: z.string().optional(),
+        deviceInfo: z.string().optional(),
+        crashType: z.enum(['boot_crash', 'gameplay_crash', 'audio_crash', 'rendering_crash']),
+        errorMessage: z.string().optional(),
+        stackTrace: z.string().optional(),
+        emulatorVersion: z.string().optional(),
+        performanceProfile: z.string().optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        // Report the crash
+        const crash = await db.reportCrash({
+          userId: ctx.user?.id,
+          gameSerial: input.gameSerial.toUpperCase(),
+          gameTitle: input.gameTitle,
+          deviceInfo: input.deviceInfo,
+          crashType: input.crashType,
+          errorMessage: input.errorMessage,
+          stackTrace: input.stackTrace,
+          emulatorVersion: input.emulatorVersion,
+          performanceProfile: input.performanceProfile,
+        });
+
+        // Get auto-fix profiles for this game and crash type
+        const fixes = await db.getAutoFixProfilesForGame(input.gameSerial.toUpperCase(), input.crashType);
+        
+        return {
+          crashId: crash.id,
+          autoFixesAvailable: fixes.length > 0,
+          suggestedFixes: fixes.slice(0, 3), // Top 3 fixes
+        };
+      }),
+
+    getRecentCrashes: adminProcedure
+      .input(z.object({
+        limit: z.number().default(50),
+      }))
+      .query(async ({ input }) => {
+        return db.getRecentCrashes(input.limit);
+      }),
+
+    getCrashesForGame: publicProcedure
+      .input(z.object({
+        gameSerial: z.string().min(1),
+        limit: z.number().default(20),
+      }))
+      .query(async ({ input }) => {
+        return db.getCrashesForGame(input.gameSerial.toUpperCase(), input.limit);
+      }),
+
+    applyFix: publicProcedure
+      .input(z.object({
+        crashLogId: z.number(),
+        fixProfileId: z.number(),
+      }))
+      .mutation(async ({ input }) => {
+        // Mark crash as having auto-fix applied
+        await db.markCrashAsFixed(input.crashLogId, true);
+        // Update fix stats
+        await db.updateAutoFixStats(input.fixProfileId, true, false);
+        return { success: true };
+      }),
+
+    reportFixSuccess: publicProcedure
+      .input(z.object({
+        crashLogId: z.number(),
+        fixProfileId: z.number(),
+      }))
+      .mutation(async ({ input }) => {
+        // Mark crash as fixed
+        await db.markCrashAsFixed(input.crashLogId, true);
+        // Update fix stats with success
+        await db.updateAutoFixStats(input.fixProfileId, true, true);
+        return { success: true };
+      }),
+  }),
+
+  // Smartest Engine & Special Features
+  smartEngine: router({
+    analyzeGame: publicProcedure
+      .input(z.object({
+        gameSerial: z.string().min(1),
+        deviceType: z.enum(['budget', 'midrange', 'flagship']),
+        deviceRam: z.number().default(4096),
+      }))
+      .query(async ({ input }) => {
+        const { getSmartRecommendation } = await import('./smartestEngine');
+        return getSmartRecommendation(input.gameSerial, input.deviceType, input.deviceRam);
+      }),
+
+    getSpecialFeatures: publicProcedure
+      .input(z.object({
+        gameSerial: z.string().optional(),
+      }))
+      .query(async () => {
+        const { getAllSpecialFeatures } = await import('./smartestEngine');
+        return getAllSpecialFeatures();
+      }),
+
+    getFeatureById: publicProcedure
+      .input(z.object({
+        featureId: z.string(),
+      }))
+      .query(async ({ input }) => {
+        const { getSpecialFeatureById } = await import('./smartestEngine');
+        return getSpecialFeatureById(input.featureId);
+      }),
+
+    applyFeature: publicProcedure
+      .input(z.object({
+        gameSerial: z.string(),
+        featureId: z.string(),
+      }))
+      .mutation(async ({ input }) => {
+        // In production, this would save to user's settings
+        return {
+          success: true,
+          message: `Applied ${input.featureId} to ${input.gameSerial}`,
+        };
+      }),
+  }),
+
   // Chat
   chat: router({
     createSession: publicProcedure
