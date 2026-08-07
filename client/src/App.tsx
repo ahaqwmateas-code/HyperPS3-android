@@ -18,6 +18,7 @@ import SpecialFeatures from "./pages/SpecialFeatures";
 import AppSettings from "./pages/AppSettings";
 import CrashFixes from "./pages/CrashFixes";
 import AutoUpdate from "./pages/AutoUpdate";
+import AutoUpgrade from "./pages/AutoUpgrade";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/app-settings" component={AppSettings} />
       <Route path="/crash-fixes" component={CrashFixes} />
       <Route path="/auto-update" component={AutoUpdate} />
+      <Route path="/auto-upgrade" component={AutoUpgrade} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

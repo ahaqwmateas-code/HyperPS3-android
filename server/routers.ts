@@ -388,6 +388,30 @@ export const appRouter = router({
       }),
   }),
 
+  // Auto-Upgrade System
+  autoUpgrade: router({
+    performFullAutoUpgrade: publicProcedure
+      .query(async () => {
+        const { performFullAutoUpgrade } = await import('./autoUpgradeService');
+        return performFullAutoUpgrade();
+      }),
+
+    getUpgradeStatus: publicProcedure
+      .query(async () => {
+        const { getAllTasks, getUpgradeStatistics } = await import('./autoUpgradeService');
+        return {
+          tasks: getAllTasks(),
+          statistics: getUpgradeStatistics(),
+        };
+      }),
+
+    scheduleAutoUpgrades: publicProcedure
+      .query(async () => {
+        const { scheduleAutoUpgrades } = await import('./autoUpgradeService');
+        return scheduleAutoUpgrades();
+      }),
+  }),
+
   // Auto-Update System
   autoUpdate: router({
     checkForUpdates: publicProcedure
