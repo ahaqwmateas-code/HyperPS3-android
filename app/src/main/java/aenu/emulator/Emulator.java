@@ -103,7 +103,11 @@ public class Emulator {
 
     public native void setup_game_path(String path);
     public native void setup_game_path(Emulator.Path path);
-    public native void setup_surface(Surface sf);
+    /**
+     * Binds the Android surface used by the Vulkan renderer.
+     * Returns false instead of allowing a null native window to reach the renderer.
+     */
+    public native boolean setup_surface(Surface sf);
     public native void boot() throws Emulator.BootException;
 
     public native void key_event(int key_code,boolean pressed,int value);

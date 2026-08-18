@@ -228,7 +228,6 @@ public class QuickStartActivity extends AppCompatActivity {
         layout_list.add(findViewById(R.id.quick_start_page_install_font));
         if(Emulator.get.support_custom_driver()) {
             layout_list.add(findViewById(R.id.quick_start_page_install_gpu_driver));
-            config.save_config_entry(EmulatorSettings.Video$Vulkan$Use_Custom_Driver,"true");
         }
         else
             findViewById(R.id.quick_start_page_install_gpu_driver).setVisibility(View.GONE);

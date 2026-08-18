@@ -629,20 +629,32 @@ public class EmulatorActivity extends AppCompatActivity {
 		@Override
 		public void surfaceCreated(SurfaceHolder holder) {
 			if (!started) {
-				started = true;
 				try {
-					Emulator.get.setup_surface(holder.getSurface());
-				} finally {
-					try {
-						Emulator.get.boot();
-					} catch (Emulator.BootException e) {
-						throw new RuntimeException(e);
+					if (!holder.getSurface().isValid() || !Emulator.get.setup_surface(holder.getSurface())) {
+						Toast.makeText(getContext(), "Renderer surface is not ready. Please try again.", Toast.LENGTH_LONG).show();
+						return;
 					}
+					Emulator.get.boot();
+					started = true;
+					// A failed native boot previously left a black screen with no explanation.
+					new Handler(Looper.getMainLooper()).postDelayed(() -> {
+						if (started && !Emulator.get.is_running()) {
+							started = false;
+							Toast.makeText(getContext(), "Game did not start. Try the system Vulkan driver and Stability Mode.", Toast.LENGTH_LONG).show();
+						}
+					}, 12000);
+				} catch (Emulator.BootException | RuntimeException e) {
+					started = false;
+					Log.e("HyperPS3", "Unable to start the renderer", e);
+					Toast.makeText(getContext(), "Unable to start the renderer. Check your Vulkan driver settings.", Toast.LENGTH_LONG).show();
 				}
 
 			} else {
 
-				Emulator.get.setup_surface(holder.getSurface());
+				if (!Emulator.get.setup_surface(holder.getSurface())) {
+					Toast.makeText(getContext(), "Renderer surface was lost. Please restart the game.", Toast.LENGTH_LONG).show();
+					return;
+				}
 
 				if (Emulator.get.is_paused())
 					Emulator.get.resume();

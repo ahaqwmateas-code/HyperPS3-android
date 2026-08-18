@@ -385,16 +385,38 @@ static void j_change_surface(JNIEnv* env,jobject self,jint w,jint h){
     ae::window_height=h;
 }
 
-static void j_setup_surface(JNIEnv* env,jobject self,jobject surface){
+static jboolean j_setup_surface(JNIEnv* env,jobject self,jobject surface){
 
-    if(ae::window){
-        ANativeWindow_release(ae::window);
-        ae::window=nullptr;}
-    if(surface) {
-        ae::window=ANativeWindow_fromSurface(env,surface);
-        ae::window_width=ANativeWindow_getWidth(ae::window);
-        ae::window_height=ANativeWindow_getHeight(ae::window);
-    }
+	if(!surface) {
+		if(ae::window){
+			ANativeWindow_release(ae::window);
+			ae::window=nullptr;
+		}
+		return JNI_TRUE;
+	}
+
+	ANativeWindow* next_window=ANativeWindow_fromSurface(env,surface);
+	if(!next_window){
+		LOGE("Unable to acquire ANativeWindow from Android surface");
+		return JNI_FALSE;
+	}
+
+	const int next_width=ANativeWindow_getWidth(next_window);
+	const int next_height=ANativeWindow_getHeight(next_window);
+	if(next_width<=0||next_height<=0){
+		LOGE("Invalid renderer surface dimensions: %d x %d",next_width,next_height);
+		ANativeWindow_release(next_window);
+		return JNI_FALSE;
+	}
+
+	if(ae::window){
+		ANativeWindow_release(ae::window);
+	}
+	ae::window=next_window;
+	ae::window_width=next_width;
+	ae::window_height=next_height;
+	__android_log_print(ANDROID_LOG_WARN, LOG_TAG, "Renderer surface ready: %d x %d", next_width, next_height);
+	return JNI_TRUE;
 }
 
 static void j_key_event(JNIEnv* env,jobject self,jint key_code,jboolean pressed,jint value){
@@ -425,7 +447,7 @@ int register_Emulator(JNIEnv* env){
     static const JNINativeMethod methods[] = {
             { "setup_game_path", "(Ljava/lang/String;)V", (void *) j_setup_game_path },
             { "setup_game_path", "(Laenu/emulator/Emulator$Path;)V", (void *) j_setup_game_path },
-            { "setup_surface", "(Landroid/view/Surface;)V", (void *) j_setup_surface },
+			{ "setup_surface", "(Landroid/view/Surface;)Z", (void *) j_setup_surface },
             { "boot", "()V", (void *) j_boot },
             { "key_event", "(IZI)V", (void *) j_key_event },
             { "quit", "()V", (void *) j_quit },

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--string name="app_name">aPS3e Premium</string-->
-    <string name="app_name">PS3 Hyper Emulator</string>
+    <string name="app_name">HyperPS3</string>
 
 	<string name="game_data_manager">Game Data Manager</string>
 	<string name="game_data_manager_desc">00000001</string>

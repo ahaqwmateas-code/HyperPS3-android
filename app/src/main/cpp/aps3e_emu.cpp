@@ -58,9 +58,14 @@ namespace ae{
 
         init();
 
-        bool boot_ok=boot_game();
+		bool boot_ok=boot_game();
+		if(!boot_ok){
+			LOGE("Game boot failed before the renderer entered the running state");
+			emu_status=STATUS_STOPPED;
+			return;
+		}
 
-        emu_status=STATUS_RUNNING;
+		emu_status=STATUS_RUNNING;
         while (true){
 
             if (emu_status == STATUS_REQUEST_RESUME) {
