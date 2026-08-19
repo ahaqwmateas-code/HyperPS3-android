@@ -444,7 +444,9 @@ Translation qwen3
 		<item>Disable</item>
 		<item>Enable</item>
 	</string-array>
-	<string name="emulator_settings_video_vulkan_asynchronous_texture_streaming_2">Asynchronous Texture Streaming 2</string>
+		<string name="emulator_settings_video_vulkan_asynchronous_texture_streaming_2">Asynchronous Texture Streaming 2</string>
+		<string name="emulator_settings_video_vulkan_post_logo_black_screen_guard">Post-Logo Black Screen Guard</string>
+		<string name="emulator_settings_video_vulkan_renderer_diagnostics">Renderer Diagnostics</string>
 	<string name="emulator_settings_video_vulkan_fidelityfx_cas_sharpening_intensity">FidelityFX CAS Sharpening Intensity</string>
 	<string name="emulator_settings_video_vulkan_asynchronous_queue_scheduler">Asynchronous Queue Scheduler</string>
 	<string-array name="video_vulkan_asynchronous_queue_scheduler_entries">

@@ -749,6 +749,14 @@
                 app:iconSpaceReserved="false"
                 app:key="Video|Vulkan|Asynchronous Texture Streaming 2" />
 
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vulkan_post_logo_black_screen_guard"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Post-Logo Black Screen Guard" />
+
+            <aenu.preference.CheckBoxPreference app:title="@string/emulator_settings_video_vulkan_renderer_diagnostics"
+                app:iconSpaceReserved="false"
+                app:key="Video|Vulkan|Renderer Diagnostics" />
+
 
             <aenu.preference.SeekBarPreference app:title="@string/emulator_settings_video_vulkan_fidelityfx_cas_sharpening_intensity"
                 app:iconSpaceReserved="false"

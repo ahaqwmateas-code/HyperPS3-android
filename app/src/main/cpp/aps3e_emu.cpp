@@ -514,6 +514,22 @@ namespace ae{
 
         //Emu.CallFromMainThread([=]()
         {
+			// Some Vulkan drivers can show the overlay but no game image after the
+			// publisher logo when asynchronous texture streaming is disabled.
+			// Keep the existing setting visible, but safely enable it for this boot
+			// while the user-facing guard remains enabled.
+			if(g_cfg.video.vk.post_logo_black_screen_guard.get() && !g_cfg.video.vk.asynchronous_texture_streaming.get()){
+				g_cfg.video.vk.asynchronous_texture_streaming.set(true);
+				aps3e_log.notice("Post-logo black-screen guard enabled asynchronous texture streaming for this boot");
+			}
+			if(g_cfg.video.vk.renderer_diagnostics.get()){
+				aps3e_log.notice("Renderer diagnostics: surface=%p size=%dx%d guard=%s async_texture_streaming=%s custom_driver=%s",
+					window, window_width, window_height,
+					g_cfg.video.vk.post_logo_black_screen_guard.get() ? "enabled" : "disabled",
+					g_cfg.video.vk.asynchronous_texture_streaming.get() ? "enabled" : "disabled",
+					g_cfg.video.vk.use_custom_driver.get() ? "enabled" : "disabled");
+			}
+
             Emu.SetForceBoot(true);
 
             const char* config_path=getenv("APS3E_CUSTOM_CONFIG_YAML_PATH");

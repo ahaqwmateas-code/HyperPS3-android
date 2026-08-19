@@ -213,6 +213,8 @@ struct cfg_root : cfg::node
 #endif
 			cfg::_enum<vk_exclusive_fs_mode> exclusive_fullscreen_mode{ this, "Exclusive Fullscreen Mode", vk_exclusive_fs_mode::unspecified};
 			cfg::_bool asynchronous_texture_streaming{ this, "Asynchronous Texture Streaming 2", false };
+			cfg::_bool post_logo_black_screen_guard{ this, "Post-Logo Black Screen Guard", true, false };
+			cfg::_bool renderer_diagnostics{ this, "Renderer Diagnostics", false, false };
 			cfg::uint<0, 100> rcas_sharpening_intensity{ this, "FidelityFX CAS Sharpening Intensity", 50, true };
 			cfg::_enum<vk_gpu_scheduler_mode> asynchronous_scheduler{ this, "Asynchronous Queue Scheduler", vk_gpu_scheduler_mode::safe };
 			cfg::uint<256, 16384> vram_allocation_limit{ this, "VRAM allocation limit (MB)", 16384, false };
