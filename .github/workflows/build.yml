@@ -2,50 +2,32 @@ name: Build HyperPS3 APK
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Setup JDK 17
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install NDK & CMake
-        run: sdkmanager "ndk;25.1.8937393" "cmake;3.22.1" "build-tools;33.0.0"
-
-      - name: Fix permissions
+      - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: List all available tasks
-        run: ./gradlew tasks --all -Dorg.gradle.java.home=$JAVA_HOME | tee tasks.txt
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
-      - name: Try assembleDebug
-        run: ./gradlew assembleDebug -Dorg.gradle.java.home=$JAVA_HOME || true
-
-      - name: Try :app:packageDebug
-        run: ./gradlew :app:packageDebug -Dorg.gradle.java.home=$JAVA_HOME || true
-
-      - name: Try build
-        run: ./gradlew build -Dorg.gradle.java.home=$JAVA_HOME || true
-
-      - name: Find APK
-        run: find . -name "*.apk" -type f 2>/dev/null || echo "No APK found"
-
-      - name: Upload APK if exists
+      - name: Upload APK
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: hyperps3-debug
-          path: |
-            app/build/outputs/apk/**/*.apk
-            **/*.apk
+          name: HyperPS3-debug
+          path: app/build/outputs/apk/debug/*.apk
