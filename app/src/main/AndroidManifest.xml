@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hyperps3.modern">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowNativeHeapPointerTagging="false"
+        android:extractNativeLibs="true"
+        android:largeHeap="true"
+        android:label="HyperPS3">
+
+        <activity android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".EmuActivity"
+            android:exported="false"
+            android:keepScreenOn="true"
+            android:hardwareAccelerated="false"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboardHidden" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="Settings" />
+
+        <service
+            android:name=".EmuService"
+            android:foregroundServiceType="dataSync" />
+
+    </application>
+</manifest>
