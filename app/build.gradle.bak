@@ -17,7 +17,7 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++17"
-                arguments "-DCMAKE_C_COMPILER_WORKS=1", "-DCMAKE_CXX_COMPILER_WORKS=1", "-DCMAKE_C_COMPILER_FORCED=TRUE", "-DCMAKE_CXX_COMPILER_FORCED=TRUE"
+                arguments "-DCMAKE_C_COMPILER_WORKS=1", "-DCMAKE_CXX_COMPILER_WORKS=1", "-DCMAKE_C_COMPILER_FORCED=TRUE", "-DCMAKE_CXX_COMPILER_FORCED=TRUE", "-DCMAKE_SIZEOF_VOID_P=8"
             }
         }
 
