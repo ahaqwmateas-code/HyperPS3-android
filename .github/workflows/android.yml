@@ -1,3 +1,35 @@
+      - name: Install ninja interceptor
+        run: |
+          # Find the exact ninja binary Gradle uses
+          NINJA_REAL=$(find /usr/local/lib/android/sdk/cmake -maxdepth 3 -name ninja -type f -executable | head -n 1)
+          echo "Intercepting ninja at: $NINJA_REAL"
+          
+          # Backup original
+          sudo mv "$NINJA_REAL" "${NINJA_REAL}.orig"
+          
+          # Write wrapper
+          sudo tee "$NINJA_REAL" > /dev/null << 'EOF'
+          #!/bin/bash
+          set -e
+          
+          PROJECT="/home/runner/work/HyperPS3-android/HyperPS3-android"
+          BAD_PATTERN="sysroot/usr/include"
+          
+          # Patch EVERY build.ninja under the project before each ninja invocation
+          find "$PROJECT" -name "build.ninja" -type f 2>/dev/null | while IFS= read -r file; do
+            if grep -qF "$BAD_PATTERN" "$file" 2>/dev/null; then
+              sed -i 's|-isystem /usr/local/lib/android/sdk/ndk/[^/]*/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include ||g' "$file"
+              sed -i 's|-isystem /usr/local/lib/android/sdk/ndk/[^/]*/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include$||g' "$file"
+            fi
+          done
+          
+          # Call original ninja
+          exec "${0}.orig" "$@"
+          EOF
+          
+          sudo chmod +x "$NINJA_REAL"
+          echo "Ninja interceptor installed"
+
       - name: Fix NDK r27 libc++ header search order
         run: |
           find app/.cxx -name "build.ninja" -exec sed -i \
