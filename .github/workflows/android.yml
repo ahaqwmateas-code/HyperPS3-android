@@ -1,0 +1,14 @@
+      - name: Fix NDK r27 libc++ header search order
+        run: |
+          find app/.cxx -name "build.ninja" -exec sed -i \
+            's|-isystem /usr/local/lib/android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include ||g' {} +
+          find app/.cxx -name "build.ninja" -exec sed -i \
+            's|-isystem /usr/local/lib/android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include$||g' {} +
+      - run: ./gradlew configureCMakeDebug
+      - run: |
+          find app/.cxx -name "build.ninja" -exec sed -i \
+            's|-isystem /usr/local/lib/android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include ||g' {} +
+          find app/.cxx -name "build.ninja" -exec sed -i \
+            's|-isystem /usr/local/lib/android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include$||g' {} +
+      - run: ./gradlew assembleDebug
+
