@@ -12,7 +12,6 @@ cmake_minimum_required(VERSION 3.22.1)
 project("aps3e")
 
 add_compile_options(-march=armv8-a)
-add_compile_options(-stdlib=libc++)
 #add_compile_options(-flto=thin)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
