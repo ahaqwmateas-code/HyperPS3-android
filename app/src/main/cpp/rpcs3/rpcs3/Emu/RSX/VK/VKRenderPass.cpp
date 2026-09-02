@@ -271,7 +271,7 @@ namespace vk
 			VkAttachmentDescription color_attachment_description = {};
 			color_attachment_description.format = color_format;
 			color_attachment_description.samples = samples;
-			color_attachment_description.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+			color_attachment_description.loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
 			color_attachment_description.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 			color_attachment_description.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 			color_attachment_description.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
@@ -287,9 +287,9 @@ namespace vk
 			VkAttachmentDescription depth_attachment_description = {};
 			depth_attachment_description.format = depth_format;
 			depth_attachment_description.samples = samples;
-			depth_attachment_description.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+			depth_attachment_description.loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
 			depth_attachment_description.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-			depth_attachment_description.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+			depth_attachment_description.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
 			depth_attachment_description.stencilStoreOp = VK_ATTACHMENT_STORE_OP_STORE;
 			depth_attachment_description.initialLayout = dsv_layout;
 			depth_attachment_description.finalLayout = dsv_layout;
