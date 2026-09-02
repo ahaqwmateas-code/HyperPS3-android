@@ -3,7 +3,8 @@ plugins {
 }
 
 android {
-    namespace 'com.hyperps3.modern'
+    namespace 'aenu.aps3e'
+    ndkVersion "26.1.10909125"
     compileSdk 35
 
     defaultConfig {
