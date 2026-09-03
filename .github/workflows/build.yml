@@ -101,15 +101,17 @@ jobs:
 
       - name: Build debug APK
         run: |
+          # Keep the Gradle JVM heap small so the clang workers (the real memory
+          # consumers during the native build) don't get starved/OOM-killed.
           ./gradlew :app:assembleDebug \
             --no-daemon \
             --max-workers=2 \
-            -Dorg.gradle.jvmargs="-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" \
+            -Dorg.gradle.jvmargs="-Xmx2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" \
             -Dorg.gradle.parallel=false \
             -Dorg.gradle.caching=true
         env:
-          JAVA_OPTS: "-Xmx6g"
-          GRADLE_OPTS: "-Xmx6g -Dorg.gradle.daemon=false"
+          JAVA_OPTS: "-Xmx2g"
+          GRADLE_OPTS: "-Xmx2g -Dorg.gradle.daemon=false"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

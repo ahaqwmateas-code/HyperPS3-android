@@ -20,6 +20,12 @@ android {
             cmake {
                 cppFlags "-std=c++17"
                 arguments "-DCMAKE_SIZEOF_VOID_P=8"
+                // The emulator engine must be built optimized. Debug builds (the default
+                // CMAKE_BUILD_TYPE for assembleDebug) compile all 4,544 C/C++ files at -O0
+                // with full debug info, which makes the APK unusably slow and exhausts the
+                // CI runner's memory (clang segfaults on several translation units).
+                // Release keeps -O3 -DNDEBUG and drops -g/-fno-limit-debug-info.
+                arguments "-DCMAKE_BUILD_TYPE=Release"
             }
         }
 
@@ -70,6 +76,7 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.preference
+    implementation libs.documentfile
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

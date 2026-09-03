@@ -1,42 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-   >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- Networking (RPCN, online features, license checks) -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Legacy external storage access for API 28-32 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <!-- Haptics for the on-screen pads -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Foreground service used for background PPU cache builds -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- The app works with a gamepad/TV, touchscreen is optional -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
     <application
+        android:name="aenu.aps3e.Application"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:allowNativeHeapPointerTagging="false"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
         android:extractNativeLibs="true"
         android:largeHeap="true"
-        android:label="HyperPS3">
+        android:isGame="true">
 
-        <activity android:name=".MainActivity"
+        <!-- Launcher: first-run wizard / quick start, forwards to MainActivity once configured -->
+        <activity
+            android:name="aenu.aps3e.QuickStartActivity"
             android:exported="true"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="aenu.intent.action.REENTRY_QUISK_START" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Game browser -->
+        <activity
+            android:name="aenu.aps3e.MainActivity"
+            android:launchMode="singleTask"
+            android:exported="false"
+            android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name=".EmuActivity"
+            android:name="aenu.aps3e.AboutActivity"
             android:exported="false"
-            android:keepScreenOn="true"
-            android:hardwareAccelerated="false"
-            android:configChanges="orientation|screenSize|smallestScreenSize|keyboardHidden" />
+            android:label="@string/about">
+        </activity>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name="aenu.aps3e.KeyMapActivity"
             android:exported="false"
-            android:label="Settings" />
+            android:label="@string/key_mappers" />
 
+        <activity
+            android:name="aenu.aps3e.UserDataActivity"
+            android:exported="false"
+            android:label="@string/user_data_manager" />
+
+        <activity
+            android:name="aenu.aps3e.VirtualPadEdit"
+            android:screenOrientation="sensorLandscape"
+            android:launchMode="singleTask"
+            android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <!-- The emulator itself runs in its own process (:emu) so a game crash never
+             takes down the UI process -->
+        <activity
+            android:name="aenu.aps3e.EmulatorActivity"
+            android:screenOrientation="sensorLandscape"
+            android:launchMode="singleTask"
+            android:keepScreenOn="true"
+            android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:exported="true"
+            android:process=":emu">
+            <intent-filter>
+                <action android:name="aenu.intent.action.APS3E" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="aenu.aps3e.EmulatorSettings"
+            android:exported="false"
+            android:label="@string/settings" />
+
+        <!-- Optional service: builds PPU caches in the background with a notification -->
         <service
-            android:name=".EmuService"
+            android:name="aenu.aps3e.PPUCacheBuildService"
+            android:exported="false"
             android:foregroundServiceType="dataSync" />
+
+        <!-- Lets the OS file picker / other apps read game files through Storage Access Framework -->
+        <provider
+            android:name="aenu.aps3e.DocumentsProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
 
     </application>
 </manifest>
