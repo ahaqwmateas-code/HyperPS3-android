@@ -24,8 +24,16 @@ android {
                 // CMAKE_BUILD_TYPE for assembleDebug) compile all 4,544 C/C++ files at -O0
                 // with full debug info, which makes the APK unusably slow and exhausts the
                 // CI runner's memory (clang segfaults on several translation units).
-                // Release keeps -O3 -DNDEBUG and drops -g/-fno-limit-debug-info.
-                arguments "-DCMAKE_BUILD_TYPE=Release"
+                //
+                // Force CMAKE_BUILD_TYPE=Release, but override the stock Release flags:
+                // -O3 -g (the NDK toolchain still injects -g for the debuggable assembleDebug
+                // variant) makes clang spike past the 7 GB GitHub runner limit on the biggest
+                // rpcs3 translation units and die with SIGSEGV mid-compile (observed on
+                // Input/raw_mouse_config.cpp at ~3900/4544 objects). -O2 without DWARF keeps
+                // peak memory bounded while still producing a fast APK; -g0 cancels the -g.
+                arguments "-DCMAKE_BUILD_TYPE=Release",
+                          "-DCMAKE_C_FLAGS_RELEASE=-O2 -DNDEBUG -g0",
+                          "-DCMAKE_CXX_FLAGS_RELEASE=-O2 -DNDEBUG -g0"
             }
         }
 
