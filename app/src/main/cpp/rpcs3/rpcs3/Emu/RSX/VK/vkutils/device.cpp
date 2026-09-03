@@ -293,6 +293,25 @@ namespace vk
 		return props.deviceName;
 	}
 
+	// Valhall-generation ARM Mali GPUs (Mali-G57/G68/G77/G78/G310/G510/G610/G615/G710/G715,
+	// Immortalis-G715/G720). They share compatibility quirks that older Bifrost/Midgard
+	// parts do not (strict texel buffer limits and WSI/gralloc format requirements).
+	static bool is_valhall_gpu(const std::string& gpu_name)
+	{
+		return gpu_name.find("G57") != umax
+			|| gpu_name.find("G68") != umax
+			|| gpu_name.find("G77") != umax
+			|| gpu_name.find("G78") != umax
+			|| gpu_name.find("G310") != umax
+			|| gpu_name.find("G510") != umax
+			|| gpu_name.find("G610") != umax
+			|| gpu_name.find("G615") != umax
+			|| gpu_name.find("G710") != umax
+			|| gpu_name.find("G715") != umax
+			|| gpu_name.find("G720") != umax
+			|| gpu_name.find("Immortalis") != umax;
+	}
+
 	driver_vendor physical_device::get_driver_vendor() const
 	{
 #ifdef __APPLE__
@@ -360,7 +379,7 @@ namespace vk
 			}
 			else if (gpu_name.find("Mali") != umax)
 			{ // e.g. "Mali-G610", hence "else"
-				return driver_vendor::ARM_MALI;
+				return is_valhall_gpu(gpu_name) ? driver_vendor::ARM_MALI_G57 : driver_vendor::ARM_MALI;
 			}
 
             if (gpu_name.find("Adreno") != umax)
@@ -398,7 +417,7 @@ namespace vk
 			case VK_DRIVER_ID_MESA_PANVK:
 				return driver_vendor::PANVK;
 			case VK_DRIVER_ID_ARM_PROPRIETARY:
-				return driver_vendor::ARM_MALI;
+				return is_valhall_gpu(get_name()) ? driver_vendor::ARM_MALI_G57 : driver_vendor::ARM_MALI;
             case VK_DRIVER_ID_QUALCOMM_PROPRIETARY:
                  return driver_vendor::ADRENO;
 			default:

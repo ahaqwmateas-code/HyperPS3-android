@@ -320,12 +320,6 @@ namespace vk
 
         VkFormat surf_color_fmt=g_cfg.video.bgra_format?VK_FORMAT_B8G8R8A8_UNORM:VK_FORMAT_R8G8B8A8_UNORM;
 
-        // Android Mali hardware composers might reject format 0x38 (VK_FORMAT_R8G8B8A8_UNORM) with certain usages (like 0xb00)
-        // Check if the current device is Mali Valhall and force B8G8R8A8_UNORM, as R8G8B8A8 causes unrecognized format crashes.
-        if (dev.get_driver_vendor() == driver_vendor::ARM_MALI_G57) {
-            surf_color_fmt = VK_FORMAT_B8G8R8A8_UNORM;
-        }
-
 		if (!present_possible)
 		{
 			//Native(sw) swapchain
@@ -343,31 +337,56 @@ namespace vk
 		std::vector<VkSurfaceFormatKHR> surfFormats(formatCount);
 		CHECK_RESULT(_vkGetPhysicalDeviceSurfaceFormatsKHR(dev, m_surface, &formatCount, surfFormats.data()));
 
-		VkFormat format;
-		VkColorSpaceKHR color_space;
+		if (!formatCount) fmt::throw_exception("Format count is zero!");
 
-		if (formatCount == 1 && surfFormats[0].format == VK_FORMAT_UNDEFINED)
+		// Android Mali (Valhall) gralloc/WSI rejects several surface formats when the default
+		// image usage flags are requested, which shows up on-device as mali_gralloc
+		// "Unrecognized and/or unsupported format 0x.. and usage 0xb00" / "Invalid base format"
+		// errors right at swapchain creation. Stick to the plain 8-bit UNORM/SRGB family on
+		// those GPUs instead of whatever the driver happens to list first.
+		const bool mali_valhall = (dev.get_driver_vendor() == driver_vendor::ARM_MALI_G57);
+
+		std::vector<VkFormat> preferred;
+		if (mali_valhall)
 		{
-			format = surf_color_fmt;
+			// The rest of the Mali path assumes BGRA8; prefer it, then plain RGBA8, and only
+			// fall back to the SRGB variants. Never take whatever format the driver lists
+			// first without checking it against this known-good set.
+			preferred = { VK_FORMAT_B8G8R8A8_UNORM, VK_FORMAT_R8G8B8A8_UNORM, VK_FORMAT_B8G8R8A8_SRGB, VK_FORMAT_R8G8B8A8_SRGB };
 		}
 		else
 		{
-			if (!formatCount) fmt::throw_exception("Format count is zero!");
-			format = surfFormats[0].format;
+			// Prefer BGRA8_UNORM to avoid sRGB compression (RADV)
+			preferred = { surf_color_fmt, VK_FORMAT_B8G8R8A8_UNORM, VK_FORMAT_R8G8B8A8_UNORM, VK_FORMAT_R8G8B8A8_SRGB };
+		}
 
-			//Prefer BGRA8_UNORM to avoid sRGB compression (RADV)
-			for (auto& surface_format : surfFormats)
+		VkSurfaceFormatKHR chosen = surfFormats[0];
+
+		if (formatCount == 1 && surfFormats[0].format == VK_FORMAT_UNDEFINED)
+		{
+			// Driver does not constrain the surface format, use our preferred one
+			chosen = { preferred[0], VK_COLOR_SPACE_SRGB_NONLINEAR_KHR };
+		}
+		else
+		{
+			for (const VkFormat pref_fmt : preferred)
 			{
-				if (surface_format.format == surf_color_fmt)
+				const auto found = std::find_if(surfFormats.cbegin(), surfFormats.cend(),
+					[&](const VkSurfaceFormatKHR& sf) { return sf.format == pref_fmt; });
+
+				if (found != surfFormats.cend())
 				{
-					format = surf_color_fmt;
+					chosen = *found;
 					break;
 				}
 			}
 		}
 
-		color_space = surfFormats[0].colorSpace;
+		if (mali_valhall)
+			rsx_log.notice("Mali Valhall: selected WSI surface format 0x%x (colorspace 0x%x) from %u advertised formats", chosen.format, chosen.colorSpace, formatCount);
+		else
+			rsx_log.notice("Selected WSI surface format 0x%x (colorspace 0x%x) from %u advertised formats", chosen.format, chosen.colorSpace, formatCount);
 
-		return new swapchain_WSI(dev, present_queue_idx, graphics_queue_idx, transfer_queue_idx, format, m_surface, color_space, !surface_config.supports_automatic_wm_reports);
+		return new swapchain_WSI(dev, present_queue_idx, graphics_queue_idx, transfer_queue_idx, chosen.format, m_surface, chosen.colorSpace, !surface_config.supports_automatic_wm_reports);
 	}
 }

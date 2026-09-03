@@ -57,6 +57,11 @@ namespace vk
 		HONEYKRISP,
 		PANVK,
 		ARM_MALI,
+		// ARM Mali Valhall generation (Mali-G57/G68/G77/G78/G310/G510/G610/G615/G710/G715, Immortalis-G715/G720).
+		// Valhall drivers share the same compatibility quirks (texel buffer limits, strict
+		// gralloc/WSI format requirements), so they are grouped under one class even though
+		// the name was originally coined for the Mali-G57 found in entry-level Dimensity SoCs.
+		ARM_MALI_G57,
         ADRENO,
 	};
 
