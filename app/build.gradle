@@ -42,7 +42,9 @@ android {
                           "-DCMAKE_C_FLAGS_RELEASE=-O2 -DNDEBUG -g0",
                           "-DCMAKE_CXX_FLAGS_RELEASE=-O2 -DNDEBUG -g0",
                           "-DLLVM_PARALLEL_COMPILE_JOBS=1",
-                          "-DLLVM_PARALLEL_LINK_JOBS=1"
+                          "-DLLVM_PARALLEL_LINK_JOBS=1",
+                          "-DCMAKE_C_FLAGS_INIT=-fno-inline-functions",
+                          "-DCMAKE_CXX_FLAGS_INIT=-fno-inline-functions"
             }
         }
 
