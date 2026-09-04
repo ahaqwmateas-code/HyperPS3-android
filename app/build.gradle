@@ -31,9 +31,18 @@ android {
                 // rpcs3 translation units and die with SIGSEGV mid-compile (observed on
                 // Input/raw_mouse_config.cpp at ~3900/4544 objects). -O2 without DWARF keeps
                 // peak memory bounded while still producing a fast APK; -g0 cancels the -g.
+                //
+                // Even at -O2 -g0, AGP's default ninja parallelism (~4 jobs) still blew past
+                // the 7 GB runner and crashed cc1plus (exit 139) on the emu target. The LLVM
+                // in-tree build (add_subdirectory) wires these options into GLOBAL ninja job
+                // pools (compile_job_pool/link_job_pool -> CMAKE_JOB_POOL_COMPILE/LINK), which
+                // ninja enforces regardless of -j: 1 compile and 1 link at a time, so clang's
+                // peak memory stays far below the runner limit.
                 arguments "-DCMAKE_BUILD_TYPE=Release",
                           "-DCMAKE_C_FLAGS_RELEASE=-O2 -DNDEBUG -g0",
-                          "-DCMAKE_CXX_FLAGS_RELEASE=-O2 -DNDEBUG -g0"
+                          "-DCMAKE_CXX_FLAGS_RELEASE=-O2 -DNDEBUG -g0",
+                          "-DLLVM_PARALLEL_COMPILE_JOBS=1",
+                          "-DLLVM_PARALLEL_LINK_JOBS=1"
             }
         }
 

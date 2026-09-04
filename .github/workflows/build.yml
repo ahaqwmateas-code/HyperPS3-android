@@ -103,12 +103,23 @@ jobs:
         run: |
           # Keep the Gradle JVM heap small so the clang workers (the real memory
           # consumers during the native build) don't get starved/OOM-killed.
-          ./gradlew :app:assembleDebug \
-            --no-daemon \
-            --max-workers=2 \
-            -Dorg.gradle.jvmargs="-Xmx2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" \
-            -Dorg.gradle.parallel=false \
-            -Dorg.gradle.caching=true
+          GRADLE_BUILD() {
+            ./gradlew :app:assembleDebug \
+              --no-daemon \
+              --max-workers=2 \
+              -Dorg.gradle.jvmargs="-Xmx2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" \
+              -Dorg.gradle.parallel=false \
+              -Dorg.gradle.caching=true
+          }
+          # The 4544-file native build is now serialized via ninja job pools, but
+          # clang can still crash (exit 139) under residual memory pressure on a
+          # 7 GB runner. ninja is incremental, so a second attempt only rebuilds
+          # the failed translation units (warm ccache makes it cheap) instead of
+          # restarting the whole build.
+          if ! GRADLE_BUILD; then
+            echo "First native build attempt failed; retrying incrementally..."
+            GRADLE_BUILD
+          fi
         env:
           JAVA_OPTS: "-Xmx2g"
           GRADLE_OPTS: "-Xmx2g -Dorg.gradle.daemon=false"
