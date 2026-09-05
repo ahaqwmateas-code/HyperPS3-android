@@ -18,7 +18,7 @@ android {
 
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++17"
+                cppFlags "-std=c++20"
                 arguments "-DCMAKE_SIZEOF_VOID_P=8"
                 // The emulator engine must be built optimized. Debug builds (the default
                 // CMAKE_BUILD_TYPE for assembleDebug) compile all 4,544 C/C++ files at -O0
