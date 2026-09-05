@@ -90,7 +90,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ccache ninja-build
-          ccache --set-config=max_size=2G
+          ccache --set-config=max_size=3G
           ccache --set-config=compression=true
           echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
           echo "CMAKE_C_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
@@ -106,23 +106,27 @@ jobs:
           GRADLE_BUILD() {
             ./gradlew :app:assembleDebug \
               --no-daemon \
-              --max-workers=2 \
-              -Dorg.gradle.jvmargs="-Xmx2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" \
+              --max-workers=1 \
+              -Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" \
               -Dorg.gradle.parallel=false \
               -Dorg.gradle.caching=true
           }
           # The 4544-file native build is now serialized via ninja job pools, but
           # clang can still crash (exit 139) under residual memory pressure on a
-          # 7 GB runner. ninja is incremental, so a second attempt only rebuilds
-          # the failed translation units (warm ccache makes it cheap) instead of
-          # restarting the whole build.
+          # 7 GB runner even with -O1 optimization. ninja is incremental, so a second
+          # attempt only rebuilds the failed translation units (warm ccache makes it cheap)
+          # instead of restarting the whole build.
           if ! GRADLE_BUILD; then
             echo "First native build attempt failed; retrying incrementally..."
-            GRADLE_BUILD
+            if ! GRADLE_BUILD; then
+              echo "Second attempt failed; clearing ccache and retrying..."
+              ccache -C
+              GRADLE_BUILD
+            fi
           fi
         env:
-          JAVA_OPTS: "-Xmx2g"
-          GRADLE_OPTS: "-Xmx2g -Dorg.gradle.daemon=false"
+          JAVA_OPTS: "-Xmx1536m"
+          GRADLE_OPTS: "-Xmx1536m -Dorg.gradle.daemon=false"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
